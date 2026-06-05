@@ -1,0 +1,3074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>REFORGE — Your Training App</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20120%20120%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%22120%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22bgDark%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23111122%22/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23060610%22/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%22120%22%20height%3D%22120%22%20fill%3D%22url%28%23bgDark%29%22/%3E%0A%20%20%3C%21--%20Subtle%20diagonal%20texture%20lines%20--%3E%0A%20%20%3Cline%20x1%3D%220%22%20y1%3D%2240%22%20x2%3D%2240%22%20y2%3D%220%22%20stroke%3D%22%23e8ff00%22%20stroke-width%3D%220.5%22%20opacity%3D%220.07%22/%3E%0A%20%20%3Cline%20x1%3D%220%22%20y1%3D%2280%22%20x2%3D%2280%22%20y2%3D%220%22%20stroke%3D%22%23e8ff00%22%20stroke-width%3D%220.5%22%20opacity%3D%220.07%22/%3E%0A%20%20%3Cline%20x1%3D%220%22%20y1%3D%22120%22%20x2%3D%22120%22%20y2%3D%220%22%20stroke%3D%22%23e8ff00%22%20stroke-width%3D%220.5%22%20opacity%3D%220.07%22/%3E%0A%20%20%3Cline%20x1%3D%2240%22%20y1%3D%22120%22%20x2%3D%22120%22%20y2%3D%2240%22%20stroke%3D%22%23e8ff00%22%20stroke-width%3D%220.5%22%20opacity%3D%220.07%22/%3E%0A%20%20%3Cline%20x1%3D%2280%22%20y1%3D%22120%22%20x2%3D%22120%22%20y2%3D%2280%22%20stroke%3D%22%23e8ff00%22%20stroke-width%3D%220.5%22%20opacity%3D%220.07%22/%3E%0A%20%20%3C%21--%20Yellow%20top%20block%20--%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22120%22%20height%3D%2240%22%20fill%3D%22%23e8ff00%22/%3E%0A%20%20%3C%21--%20RE%20on%20yellow%20%E2%80%94%20large%20and%20bold%20--%3E%0A%20%20%3Ctext%20x%3D%2260%22%20y%3D%2233%22%20text-anchor%3D%22middle%22%20font-family%3D%22Bebas%20Neue%2C%20sans-serif%22%20font-size%3D%2234%22%20fill%3D%22%23080810%22%20letter-spacing%3D%2210%22%3ERE%3C/text%3E%0A%20%20%3C%21--%20Separator%20line%20--%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%2240%22%20width%3D%22120%22%20height%3D%222%22%20fill%3D%22%23e8ff00%22%20opacity%3D%220.25%22/%3E%0A%20%20%3C%21--%20FORGE%20large%20%E2%80%94%20nearly%20fills%20bottom%20--%3E%0A%20%20%3Ctext%20x%3D%2260%22%20y%3D%22102%22%20text-anchor%3D%22middle%22%20font-family%3D%22Bebas%20Neue%2C%20sans-serif%22%20font-size%3D%2258%22%20fill%3D%22%23e8ff00%22%20letter-spacing%3D%220%22%3EFORGE%3C/text%3E%0A%3C/svg%3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="REFORGE">
+<meta name="theme-color" content="#080810">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --bg: #080810;
+  --surface: #10101c;
+  --card: #16162a;
+  --card2: #1c1c32;
+  --accent: #e8ff00;
+  --accent2: #ff4566;
+  --accent3: #00d4ff;
+  --green: #00ff88;
+  --orange: #ff9640;
+  --text: #eeeef8;
+  --muted: #5a5a88;
+  --border: #252540;
+  --radius: 16px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.app-header {
+  padding: 52px 20px 14px;
+  background: linear-gradient(180deg, rgba(8,8,16,1) 60%, transparent);
+  position: sticky; top: 0; z-index: 100;
+}
+.header-row { display:flex; justify-content:space-between; align-items:center; }
+.app-logo { font-family:'Bebas Neue'; font-size:34px; letter-spacing:6px; color:var(--accent); text-shadow:0 0 24px rgba(232,255,0,0.4); }
+.app-logo span { color:var(--text); }
+.week-badge {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:5px 12px;
+  font-family:'Space Mono';
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:1px;
+}
+.week-badge strong { color:var(--accent); }
+
+/* ── NAV ── */
+.bottom-nav {
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:430px;
+  background:rgba(8,8,16,0.95);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex;
+  z-index:200;
+  padding:8px 0 24px;
+}
+.nav-btn {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;
+  background:none; border:none; cursor:pointer;
+  padding:8px 4px 2px;
+  color:var(--muted);
+  font-family:'DM Sans'; font-size:10px; letter-spacing:0.5px;
+  transition:color 0.2s;
+}
+.nav-btn.active { color:var(--accent); }
+.nav-icon { font-size:22px; line-height:1; }
+
+/* ── TABS ── */
+.tab { display:none; padding:0 16px; animation:fadeIn 0.25s ease; }
+.tab.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+
+/* ── SECTION TITLES ── */
+.section-title {
+  font-family:'Space Mono'; font-size:10px; letter-spacing:2px;
+  color:var(--muted); text-transform:uppercase; margin:20px 0 10px;
+}
+
+/* ── TODAY TAB ── */
+.today-hero {
+  background: linear-gradient(135deg, var(--card2) 0%, #0e0e28 100%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  margin-bottom:12px;
+  position:relative;
+  overflow:hidden;
+}
+.today-hero.compact { padding:12px 14px; }
+.hero-status-badge {
+  position:absolute; top:12px; right:12px;
+  background:rgba(232,255,0,0.1); border:1px solid rgba(232,255,0,0.25);
+  border-radius:20px; padding:4px 10px;
+  font-family:'Space Mono'; font-size:9px; letter-spacing:1px;
+  color:var(--accent);
+}
+.today-hero::before {
+  content:'';
+  position:absolute; top:-40px; right:-40px;
+  width:160px; height:160px;
+  background:radial-gradient(circle, rgba(232,255,0,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.day-label { font-family:'Space Mono'; font-size:10px; color:var(--muted); letter-spacing:2px; margin-bottom:4px; }
+.day-title { font-family:'Bebas Neue'; font-size:38px; color:var(--accent); letter-spacing:2px; line-height:1; }
+.day-sub { font-size:13px; color:var(--muted); margin-top:4px; }
+.day-meta { display:flex; gap:12px; margin-top:14px; }
+.day-meta-item { background:rgba(255,255,255,0.05); border-radius:8px; padding:6px 12px; font-size:12px; }
+.day-meta-item span { color:var(--accent); font-weight:600; }
+
+/* ── EXERCISE CARD ── */
+.ex-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:10px;
+  overflow:hidden;
+  transition:border-color 0.2s;
+}
+.ex-card.done { border-color:var(--green); opacity:0.75; }
+.ex-header {
+  display:flex; align-items:center; gap:12px; padding:14px 16px;
+  cursor:pointer;
+}
+.ex-check {
+  width:28px; height:28px; border-radius:50%;
+  border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-size:14px;
+  transition:all 0.25s;
+  cursor:pointer;
+}
+.ex-card.done .ex-check { background:var(--green); border-color:var(--green); }
+.ex-info { flex:1; min-width:0; }
+.ex-name { font-size:15px; font-weight:600; color:var(--text); }
+.ex-sets { font-family:'Space Mono'; font-size:11px; color:var(--muted); margin-top:2px; }
+.ex-badge {
+  font-family:'Space Mono'; font-size:9px; letter-spacing:1px;
+  padding:3px 8px; border-radius:20px; flex-shrink:0;
+}
+.badge-chest { background:rgba(0,212,255,0.1); color:var(--accent3); border:1px solid rgba(0,212,255,0.2); }
+.badge-core { background:rgba(232,255,0,0.08); color:var(--accent); border:1px solid rgba(232,255,0,0.15); }
+.badge-legs { background:rgba(255,150,64,0.1); color:var(--orange); border:1px solid rgba(255,150,64,0.2); }
+.badge-full { background:rgba(255,69,102,0.1); color:var(--accent2); border:1px solid rgba(255,69,102,0.2); }
+.badge-cardio { background:rgba(0,255,136,0.08); color:var(--green); border:1px solid rgba(0,255,136,0.15); }
+
+.ex-expand { display:none; padding:0 16px 16px; border-top:1px solid var(--border); }
+.ex-expand.open { display:block; }
+
+.ex-diagram {
+  width:100%; height:140px; background:var(--surface);
+  border-radius:10px; margin-bottom:12px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative;
+}
+
+.ex-desc { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:10px; }
+
+.ex-tips { font-size:12px; }
+.ex-tips li { color:var(--muted); margin-bottom:4px; margin-left:16px; }
+.ex-tips li strong { color:var(--accent3); }
+
+.yt-link {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(255,0,0,0.1); border:1px solid rgba(255,0,0,0.2);
+  color:#ff4444; border-radius:8px; padding:6px 12px;
+  font-size:12px; font-weight:600; text-decoration:none; margin-top:8px;
+}
+
+/* ── REST DAY ── */
+.rest-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:30px 20px; text-align:center;
+}
+.rest-icon { font-size:48px; margin-bottom:10px; }
+.rest-title { font-family:'Bebas Neue'; font-size:28px; color:var(--muted); letter-spacing:2px; }
+.rest-sub { font-size:13px; color:var(--muted); margin-top:4px; }
+
+/* ── PROGRESS RING ── */
+.progress-ring-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px 16px; margin-bottom:12px;
+}
+.ring-row { display:flex; gap:16px; align-items:center; }
+.ring-svg { width:90px; height:90px; }
+.ring-stats { flex:1; }
+.ring-stat { margin-bottom:10px; }
+.ring-stat-label { font-family:'Space Mono'; font-size:9px; color:var(--muted); letter-spacing:1px; }
+.ring-stat-value { font-family:'Bebas Neue'; font-size:28px; color:var(--text); line-height:1; }
+.ring-stat-value span { font-size:13px; color:var(--muted); font-family:'DM Sans'; font-weight:300; }
+
+/* ── STREAK ── */
+.streak-row { display:flex; gap:8px; margin-bottom:12px; }
+.streak-day {
+  flex:1; aspect-ratio:1; border-radius:10px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  background:var(--card); border:1px solid var(--border);
+  font-size:10px; color:var(--muted); font-family:'Space Mono';
+  gap:4px;
+}
+.streak-day.done { background:rgba(0,255,136,0.1); border-color:var(--green); color:var(--green); }
+.streak-day.today { border-color:var(--accent); color:var(--accent); }
+.streak-dot { width:8px; height:8px; border-radius:50%; background:var(--border); }
+.streak-day.done .streak-dot { background:var(--green); }
+.streak-day.today .streak-dot { background:var(--accent); }
+
+/* ── METRICS ── */
+.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+.metric-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px;
+}
+.metric-label { font-family:'Space Mono'; font-size:9px; color:var(--muted); letter-spacing:1px; margin-bottom:6px; }
+.metric-value { font-family:'Bebas Neue'; font-size:32px; color:var(--text); line-height:1; }
+.metric-unit { font-size:12px; color:var(--muted); font-family:'DM Sans'; margin-left:2px; }
+.metric-input {
+  width:100%; background:var(--surface); border:1px solid var(--border);
+  border-radius:8px; color:var(--text); font-family:'Bebas Neue';
+  font-size:28px; text-align:center; padding:6px; margin-top:6px;
+  outline:none;
+  /* Remove spinners */
+  -moz-appearance:textfield;
+}
+.metric-input::-webkit-outer-spin-button,
+.metric-input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+.metric-input:focus { border-color:var(--accent); }
+.metric-input.unlocked { pointer-events:auto !important; opacity:1 !important; border-color:var(--accent); }
+
+/* ── WEIGHT CHART ── */
+.chart-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px; margin-bottom:12px;
+}
+canvas { display:block; }
+
+/* ── SCHEDULE TAB ── */
+.week-grid { display:flex; flex-direction:column; gap:8px; }
+.week-day-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px 16px;
+  display:flex; align-items:center; gap:12px;
+  cursor:pointer; transition:border-color 0.2s;
+}
+.week-day-card:hover { border-color:var(--accent); }
+.week-day-card.today-card { border-color:var(--accent); }
+.wday-num {
+  font-family:'Bebas Neue'; font-size:36px; color:var(--muted); line-height:1;
+  width:36px; flex-shrink:0;
+}
+.week-day-card.today-card .wday-num { color:var(--accent); }
+.wday-info { flex:1; }
+.wday-name { font-size:15px; font-weight:600; }
+.wday-focus { font-size:12px; color:var(--muted); margin-top:2px; }
+.wday-badges { display:flex; gap:5px; flex-wrap:wrap; margin-top:6px; }
+.wday-check { font-size:20px; }
+
+/* ── MEALS TAB ── */
+.meal-day-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); margin-bottom:10px; overflow:hidden;
+}
+.meal-day-header {
+  padding:12px 16px; display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; border-bottom:1px solid var(--border);
+}
+.meal-day-title { font-family:'Bebas Neue'; font-size:22px; letter-spacing:1px; color:var(--accent); }
+.meal-day-kcal { font-family:'Space Mono'; font-size:11px; color:var(--muted); }
+.meal-list { padding:12px 16px; }
+.meal-item { padding:10px 0; border-bottom:1px solid rgba(37,37,64,0.5); }
+.meal-item:last-child { border-bottom:none; }
+.meal-time { font-family:'Space Mono'; font-size:9px; color:var(--muted); letter-spacing:1px; margin-bottom:3px; }
+.meal-name { font-size:14px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.meal-desc { font-size:12px; color:var(--muted); line-height:1.5; }
+.meal-macros { display:flex; gap:8px; margin-top:6px; }
+.macro { font-family:'Space Mono'; font-size:9px; padding:2px 7px; border-radius:10px; }
+.macro-p { background:rgba(0,212,255,0.1); color:var(--accent3); }
+.macro-c { background:rgba(232,255,0,0.08); color:var(--accent); }
+.macro-f { background:rgba(255,150,64,0.1); color:var(--orange); }
+
+/* ── RUN TAB ── */
+/* iframe removed - move tracker now native */
+
+/* ── BACK SAFE BANNER ── */
+.safety-banner {
+  background:rgba(255,69,102,0.1); border:1px solid rgba(255,69,102,0.25);
+  border-radius:12px; padding:12px 14px; margin-bottom:12px;
+  display:flex; gap:10px; align-items:flex-start;
+}
+.safety-icon { font-size:20px; flex-shrink:0; }
+.safety-text { font-size:12px; color:var(--muted); line-height:1.5; }
+.safety-text strong { color:var(--accent2); display:block; margin-bottom:2px; }
+
+/* ── WEEK SWITCHER ── */
+.week-switch {
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:10px 14px; margin-bottom:12px;
+}
+.week-switch-btn {
+  background:none; border:none; color:var(--accent); font-size:18px; cursor:pointer; padding:0 8px;
+}
+.week-switch-label { font-family:'Space Mono'; font-size:12px; color:var(--text); }
+
+/* ── RUN HISTORY ── */
+.run-history-item {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); margin-bottom:8px; overflow:hidden;
+  transition: border-color 0.2s;
+}
+.run-history-item.selected { border-color:var(--accent2); }
+.run-history-header {
+  display:flex; align-items:center; gap:10px; padding:12px 14px; cursor:pointer;
+}
+.run-act-icon { font-size:24px; flex-shrink:0; }
+.run-info { flex:1; min-width:0; }
+.run-title { font-size:14px; font-weight:600; color:var(--text); }
+.run-meta { font-family:'Space Mono'; font-size:10px; color:var(--muted); margin-top:2px; }
+.run-dist-badge {
+  font-family:'Bebas Neue'; font-size:22px; color:var(--accent); flex-shrink:0;
+}
+.run-expand { display:none; padding:0 14px 14px; border-top:1px solid var(--border); }
+.run-expand.open { display:block; }
+.run-stat-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.run-stat-chip {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:8px; padding:6px 10px; font-size:12px;
+}
+.run-stat-chip span { font-family:'Bebas Neue'; font-size:18px; color:var(--text); display:block; line-height:1; }
+.run-stat-chip small { font-family:'Space Mono'; font-size:8px; color:var(--muted); letter-spacing:1px; }
+.run-delete-btn {
+  background:rgba(255,69,102,0.1); border:1px solid rgba(255,69,102,0.25);
+  color:var(--accent2); border-radius:8px; padding:6px 14px;
+  font-size:12px; cursor:pointer; margin-top:10px;
+}
+.run-select-check {
+  width:22px; height:22px; border-radius:50%; border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; flex-shrink:0; cursor:pointer; transition:all 0.2s;
+}
+.run-history-item.selected .run-select-check {
+  background:var(--accent2); border-color:var(--accent2); color:#fff;
+}
+
+/* ── MISC ── */
+.divider { height:1px; background:var(--border); margin:16px 0; }
+.tag {
+  display:inline-block; font-family:'Space Mono'; font-size:9px; letter-spacing:1px;
+  padding:3px 8px; border-radius:20px;
+}
+.tag-back { background:rgba(255,69,102,0.1); color:var(--accent2); border:1px solid rgba(255,69,102,0.2); }
+.tag-new { background:rgba(0,255,136,0.1); color:var(--green); border:1px solid rgba(0,255,136,0.2); }
+
+.open-arrow { color:var(--muted); font-size:14px; transition:transform 0.2s; }
+.open-arrow.rotated { transform:rotate(180deg); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="header-row">
+    <div class="app-logo"><span style="color:var(--text)">RE</span>FORGE</div>
+    <div class="week-badge">WEEK <strong id="weekNum">1</strong> · <span id="weekPhase">BACK SAFE</span></div>
+  </div>
+</div>
+
+<!-- TABS -->
+
+<!-- ═══════════════ TODAY ═══════════════ -->
+<div class="tab active" id="tab-today">
+
+  <div id="prelaunchBanner" style="display:none;background:linear-gradient(135deg,rgba(232,255,0,0.08),rgba(0,212,255,0.05));border:1px solid rgba(232,255,0,0.2);border-radius:14px;padding:16px;margin-bottom:12px;text-align:center;">
+    <div style="font-family:'Bebas Neue';font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:4px" id="launchLabel">PROGRAM LAUNCHES IN</div>
+    <div style="font-family:'Bebas Neue';font-size:48px;color:var(--accent);line-height:1" id="launchCountdown">2 DAYS</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Monday June 8 · Use today to rest your back & prep meals</div>
+  </div>
+
+  <div class="safety-banner" id="safetyBanner">
+    <div class="safety-icon">⚠️</div>
+    <div class="safety-text">
+      <strong>Back Recovery Mode — Week 1</strong>
+      All exercises this week are low-impact and spine-safe. No heavy loading, no twisting. Progress to Week 2 when your back feels ready.
+    </div>
+  </div>
+
+  <div class="today-hero" id="todayHero">
+    <div class="day-label" id="todayLabel">LOADING...</div>
+    <div class="day-title" id="todayTitle">—</div>
+    <div class="day-sub" id="todaySub">—</div>
+    <div class="day-meta" id="todayMeta"></div>
+  </div>
+
+  <div class="section-title" id="todayExSection">TODAY'S EXERCISES</div>
+  <div id="todayExercises"></div>
+
+</div>
+
+<!-- ═══════════════ SCHEDULE ═══════════════ -->
+<div class="tab" id="tab-schedule">
+
+  <div class="section-title">5-DAY WEEKLY PLAN</div>
+  <div class="week-grid" id="weekGrid"></div>
+
+  <div class="section-title" style="margin-top:24px">ABOUT YOUR PROGRAM</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;font-size:13px;color:var(--muted);line-height:1.7;">
+    <p>Your program is structured to <strong style="color:var(--text)">progressively overload</strong> each week. Week 1 is back-safe and low impact. From Week 2 you'll add volume and difficulty.</p>
+    <br>
+    <p><strong style="color:var(--accent3)">Chest & Push</strong> — Mon & Thu. Push-ups are your primary chest builder. Variations get harder weekly.</p>
+    <br>
+    <p><strong style="color:var(--accent)">Core</strong> — Tue & Fri. Planks, dead bugs, leg raises. No crunches (back-safe).</p>
+    <br>
+    <p><strong style="color:var(--green)">Active Recovery</strong> — Wed. Walk, bike, skate. Low heart rate. Keeps blood flowing.</p>
+    <br>
+    <p><strong style="color:var(--orange)">Full Body + Cardio</strong> — Sat. Mixes all movement patterns. Jog/run optional.</p>
+    <br>
+    <p><strong style="color:var(--muted)">Rest</strong> — Sun. Mandatory. Muscles grow on rest days, not workout days.</p>
+  </div>
+
+</div>
+
+<!-- ═══════════════ MEALS ═══════════════ -->
+<div class="tab" id="tab-meals">
+
+  <!-- MEAL NAV -->
+  <div style="display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;">
+    <button onclick="mealNav('eating-out')" id="mnav-eating-out" style="flex-shrink:0;padding:8px 14px;border-radius:20px;border:2px solid var(--accent);background:rgba(232,255,0,0.1);color:var(--accent);font-family:'Space Mono';font-size:9px;letter-spacing:1px;cursor:pointer;">🚗 EATING OUT</button>
+    <button onclick="mealNav('home')" id="mnav-home" style="flex-shrink:0;padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'Space Mono';font-size:9px;letter-spacing:1px;cursor:pointer;">🏠 HOME COOKING</button>
+    <button onclick="mealNav('plan')" id="mnav-plan" style="flex-shrink:0;padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'Space Mono';font-size:9px;letter-spacing:1px;cursor:pointer;">📅 MEAL PLAN</button>
+    <button onclick="mealNav('prefs')" id="mnav-prefs" style="flex-shrink:0;padding:8px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'Space Mono';font-size:9px;letter-spacing:1px;cursor:pointer;">⚙️ PREFS</button>
+  </div>
+
+  <!-- EATING OUT -->
+  <div id="msec-eating-out">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;font-size:12px;color:var(--muted);line-height:1.5;">
+      💡 <strong style="color:var(--text)">Smart ordering guide.</strong> These are your best options at each spot — as close to what you already get, just smarter. ~2,080 kcal target daily.
+    </div>
+    <div id="restaurantGuide"></div>
+  </div>
+
+  <!-- HOME COOKING -->
+  <div id="msec-home" style="display:none;">
+    <div id="homeCookingGuide"></div>
+  </div>
+
+  <!-- MEAL PLAN -->
+  <div id="msec-plan" style="display:none;">
+    <div id="mealSummaryBar" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--muted);line-height:1.5)"></div>
+    <div id="mealsContainer"></div>
+  </div>
+
+  <!-- PREFS -->
+  <div id="msec-prefs" style="display:none;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;">
+      <div style="padding:12px 16px;font-size:13px;font-weight:600;">Food Preferences</div>
+      <div style="padding:0 16px 16px;">
+        <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:10px">PROTEINS</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="proteinToggles"></div>
+        <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:10px">VEGETABLES</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="vegToggles"></div>
+        <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:6px">BREAKFAST STYLE</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="breakfastToggles"></div>
+        <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:6px">LUNCH STYLE</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="lunchToggles"></div>
+        <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:6px">DINNER STYLE</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px" id="dinnerToggles"></div>
+        <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">NOTES / DISLIKES</div>
+        <textarea id="foodNotes" placeholder="e.g. no asparagus, tomatoes only in burgers/tacos..."
+          style="width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans';font-size:13px;padding:10px;outline:none;resize:none;min-height:64px;line-height:1.5"
+          oninput="savePrefs()"></textarea>
+        <button onclick="savePrefs();renderMeals();mealNav('plan')"
+          style="margin-top:12px;width:100%;padding:12px;background:var(--accent);color:#000;border:none;border-radius:10px;font-family:'Bebas Neue';font-size:20px;letter-spacing:2px;cursor:pointer;">
+          APPLY PREFERENCES
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════ RUN ═══════════════ -->
+<div class="tab" id="tab-run">
+  <div class="section-title">MOVE TRACKER</div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px;font-size:13px;color:var(--muted);">
+    🏃 Run, walk, bike or skate — all tracked here. Pick your activity and tap Start.
+  </div>
+
+  <!-- Activity Selector -->
+  <div id="moveActSel" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+    <button id="mab-run"   onclick="moveSetAct('run')"   style="padding:10px 4px;border-radius:12px;border:2px solid #00ff88;background:rgba(0,255,136,0.1);color:#eeeef8;text-align:center;cursor:pointer;font-family:'DM Sans';">
+      <span style="font-size:22px;display:block;margin-bottom:3px;">🏃</span>
+      <span style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;color:#00ff88;">RUN/JOG</span>
+    </button>
+    <button id="mab-walk"  onclick="moveSetAct('walk')"  style="padding:10px 4px;border-radius:12px;border:1px solid #252540;background:#16162a;color:#5a5a88;text-align:center;cursor:pointer;font-family:'DM Sans';">
+      <span style="font-size:22px;display:block;margin-bottom:3px;">🚶</span>
+      <span style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;">WALK</span>
+    </button>
+    <button id="mab-bike"  onclick="moveSetAct('bike')"  style="padding:10px 4px;border-radius:12px;border:1px solid #252540;background:#16162a;color:#5a5a88;text-align:center;cursor:pointer;font-family:'DM Sans';">
+      <span style="font-size:22px;display:block;margin-bottom:3px;">🚴</span>
+      <span style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;">BIKE</span>
+    </button>
+    <button id="mab-skate" onclick="moveSetAct('skate')" style="padding:10px 4px;border-radius:12px;border:1px solid #252540;background:#16162a;color:#5a5a88;text-align:center;cursor:pointer;font-family:'DM Sans';">
+      <span style="font-size:22px;display:block;margin-bottom:3px;">🛹</span>
+      <span style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;">SKATE</span>
+    </button>
+  </div>
+
+  <!-- Map -->
+  <div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid #252540;background:#10101c;margin-bottom:12px;">
+    <canvas id="moveCanvas" style="width:100%;height:220px;display:block;"></canvas>
+    <div style="position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;pointer-events:none;">
+      <div id="moveMapBadge" style="background:rgba(8,8,16,0.85);border:1px solid #252540;border-radius:8px;padding:5px 10px;font-family:'Space Mono';font-size:10px;color:#00ff88;">TRAIL MAP</div>
+      <div id="moveCoordBadge" style="background:rgba(8,8,16,0.85);border:1px solid #252540;border-radius:8px;padding:5px 10px;font-family:'Space Mono';font-size:10px;color:#00ff88;">—</div>
+    </div>
+    <div style="position:absolute;bottom:10px;left:10px;right:10px;height:44px;background:rgba(8,8,16,0.7);border-radius:8px;border:1px solid #252540;padding:5px 10px 3px;">
+      <div style="font-family:'Space Mono';font-size:8px;color:#5a5a88;letter-spacing:1px;margin-bottom:2px;">ELEVATION</div>
+      <canvas id="moveElevCanvas" style="width:100%;height:22px;display:block;"></canvas>
+    </div>
+  </div>
+
+  <!-- Timer -->
+  <div style="text-align:center;padding:6px 0 2px;">
+    <div id="moveActLabel" style="font-family:'Space Mono';font-size:9px;color:#5a5a88;letter-spacing:2px;margin-bottom:2px;">RUN/JOG · ELAPSED TIME</div>
+    <div id="moveTimer" style="font-family:'Bebas Neue';font-size:64px;color:#eeeef8;line-height:1;">00:00:00</div>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+    <div style="background:#16162a;border:1px solid #252540;border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:#00ff88;opacity:0.6;"></div>
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:2px;color:#5a5a88;margin-bottom:4px;">DISTANCE</div>
+      <div id="moveDist" style="font-family:'Bebas Neue';font-size:32px;line-height:1;">0.00<span style="font-size:11px;color:#5a5a88;margin-left:2px;">km</span></div>
+      <div id="moveSteps" style="font-size:10px;color:#5a5a88;margin-top:2px;">0 steps</div>
+    </div>
+    <div style="background:#16162a;border:1px solid #252540;border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:#4d9fff;opacity:0.6;"></div>
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:2px;color:#5a5a88;margin-bottom:4px;">AVG PACE</div>
+      <div id="movePace" style="font-family:'Bebas Neue';font-size:32px;line-height:1;">—<span style="font-size:11px;color:#5a5a88;margin-left:2px;">m/km</span></div>
+    </div>
+    <div style="background:#16162a;border:1px solid #252540;border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:#ff4566;opacity:0.6;"></div>
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:2px;color:#5a5a88;margin-bottom:4px;">CALORIES</div>
+      <div id="moveCal" style="font-family:'Bebas Neue';font-size:32px;line-height:1;">0<span style="font-size:11px;color:#5a5a88;margin-left:2px;">kcal</span></div>
+    </div>
+    <div style="background:#16162a;border:1px solid #252540;border-radius:12px;padding:12px 14px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:#ff9640;opacity:0.6;"></div>
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:2px;color:#5a5a88;margin-bottom:4px;">HEART RATE</div>
+      <div id="moveBpm" style="font-family:'Bebas Neue';font-size:32px;line-height:1;">—<span style="font-size:11px;color:#5a5a88;margin-left:2px;">bpm</span></div>
+      <canvas id="moveBpmCanvas" style="width:100%;height:24px;display:block;margin-top:4px;"></canvas>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div style="display:flex;gap:8px;margin-bottom:10px;">
+    <button id="moveBtnStart" onclick="moveStart()" style="flex:1;padding:16px;background:#00ff88;color:#000;border:none;border-radius:12px;font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;cursor:pointer;box-shadow:0 4px 16px rgba(0,255,136,0.3);">START 🏃</button>
+    <button id="moveBtnStop" onclick="moveStop()" style="display:none;flex:1;padding:16px;background:#16162a;color:#ff4566;border:1px solid #ff4566;border-radius:12px;font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;cursor:pointer;">STOP</button>
+    <button onclick="moveDemo()" style="padding:16px 12px;background:#16162a;color:#4d9fff;border:1px solid #252540;border-radius:12px;font-family:'DM Sans';font-size:13px;cursor:pointer;">▶ Demo</button>
+  </div>
+
+  <!-- Splits -->
+  <div id="moveSplits" style="display:none;background:#16162a;border:1px solid #252540;border-radius:12px;padding:12px 14px;margin-bottom:12px;">
+    <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:#5a5a88;margin-bottom:10px;">KM SPLITS</div>
+    <div id="moveSplitsContainer"></div>
+  </div>
+
+  <!-- Run History -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;margin-top:4px;">
+    <div class="section-title" style="margin:0;">SAVED SESSIONS</div>
+    <div style="display:flex;gap:8px;" id="historyControls">
+      <button id="historySelectBtn" onclick="historyToggleSelect()" style="background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer;">Select</button>
+      <button id="historyDeleteAllBtn" onclick="historyDeleteSelected()" style="display:none;background:rgba(255,69,102,0.1);border:1px solid rgba(255,69,102,0.25);color:var(--accent2);border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer;">Delete Selected</button>
+    </div>
+  </div>
+  <div id="runHistoryContainer">
+    <div style="text-align:center;padding:24px;color:var(--muted);font-size:13px;">No sessions saved yet.<br>Complete a session to see it here.</div>
+  </div>
+</div>
+
+<!-- ═══════════════ PROGRESS ═══════════════ -->
+<div class="tab" id="tab-progress">
+
+  <!-- Week switcher -->
+  <div style="display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:10px 14px;margin-bottom:10px;">
+    <button onclick="progressChangeWeek(-1)" style="background:none;border:none;color:var(--accent);font-size:22px;cursor:pointer;padding:0 8px;line-height:1;">‹</button>
+    <div id="progressWeekLabel" style="font-family:'Space Mono';font-size:11px;color:var(--text);letter-spacing:1px;">THIS WEEK</div>
+    <button onclick="progressChangeWeek(1)" style="background:none;border:none;color:var(--accent);font-size:22px;cursor:pointer;padding:0 8px;line-height:1;">›</button>
+  </div>
+
+  <div class="section-title" id="progressStreakTitle">THIS WEEK</div>
+  <div class="streak-row" id="streakRow"></div>
+
+  <div class="progress-ring-wrap">
+    <div class="ring-row">
+      <svg class="ring-svg" viewBox="0 0 90 90">
+        <circle cx="45" cy="45" r="38" fill="none" stroke="var(--border)" stroke-width="7"/>
+        <circle id="progressRing" cx="45" cy="45" r="38" fill="none" stroke="var(--accent)" stroke-width="7"
+          stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="239"
+          transform="rotate(-90 45 45)" style="transition:stroke-dashoffset 0.8s ease"/>
+        <text x="45" y="48" text-anchor="middle" font-family="Bebas Neue" font-size="22" fill="white" id="ringPct">0%</text>
+      </svg>
+      <div class="ring-stats">
+        <div class="ring-stat">
+          <div class="ring-stat-label">WORKOUTS DONE</div>
+          <div class="ring-stat-value" id="wktDone">0 <span>/ 5 this week</span></div>
+        </div>
+        <div class="ring-stat">
+          <div class="ring-stat-label">EXERCISES DONE</div>
+          <div class="ring-stat-value" id="exDone">0 <span>total</span></div>
+        </div>
+        <div class="ring-stat">
+          <div class="ring-stat-label">STREAK</div>
+          <div class="ring-stat-value" id="streakCount">0 <span>days</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cardio Stats this week -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;" id="cardioStatsRow">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 10px;text-align:center;">
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;color:var(--muted);margin-bottom:4px;">KM MOVED</div>
+      <div id="cardioKm" style="font-family:'Bebas Neue';font-size:28px;color:var(--accent3);line-height:1;">0.0</div>
+      <div style="font-size:9px;color:var(--muted);">this week</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 10px;text-align:center;">
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;color:var(--muted);margin-bottom:4px;">ACTIVE MIN</div>
+      <div id="cardioMins" style="font-family:'Bebas Neue';font-size:28px;color:var(--green);line-height:1;">0</div>
+      <div style="font-size:9px;color:var(--muted);">this week</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 10px;text-align:center;">
+      <div style="font-family:'Space Mono';font-size:8px;letter-spacing:1px;color:var(--muted);margin-bottom:4px;">CARDIO KCAL</div>
+      <div id="cardioKcal" style="font-family:'Bebas Neue';font-size:28px;color:var(--accent2);line-height:1;">0</div>
+      <div style="font-size:9px;color:var(--muted);">this week</div>
+    </div>
+  </div>
+
+  <!-- BODY METRICS -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+    <div class="section-title" style="margin:0;">BODY METRICS</div>
+    <button id="metricsEditBtn" onclick="toggleMetricsEdit()" style="background:var(--card);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:5px 14px;font-family:'Space Mono';font-size:9px;letter-spacing:1px;cursor:pointer;">✏️ EDIT</button>
+  </div>
+
+  <!-- Weight — daily -->
+  <div class="metric-card" style="margin-bottom:8px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div class="metric-label" style="margin:0;">WEIGHT <span style="color:var(--muted);font-size:8px;">· daily</span></div>
+      <div id="bmiDisplay" style="font-size:12px;">—</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input class="metric-input" type="number" id="weightInput" placeholder="167"
+        style="flex:1;pointer-events:none;opacity:0.5;"
+        oninput="logMetric('weight',this.value);updateWeightChart()">
+      <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);">lbs</div>
+    </div>
+    <div style="margin-top:8px;">
+      <canvas id="weightChart" height="70" style="width:100%;display:block;"></canvas>
+    </div>
+    <div id="weightLatest" style="font-size:10px;color:var(--muted);text-align:center;margin-top:4px;">Log daily for trend</div>
+  </div>
+
+  <!-- Waist + Chest — weekly -->
+  <div class="metric-grid" style="margin-bottom:8px;">
+    <div class="metric-card">
+      <div class="metric-label">WAIST <span style="color:var(--muted);font-size:8px;">· weekly</span></div>
+      <div style="display:flex;gap:6px;align-items:center;margin-top:6px;">
+        <input class="metric-input" type="number" id="waistInput" placeholder="34"
+          style="flex:1;pointer-events:none;opacity:0.5;"
+          oninput="logMetric('waist',this.value)">
+        <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);">in</div>
+      </div>
+      <div id="waistTrend" style="font-size:10px;color:var(--muted);margin-top:4px;text-align:center;">—</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">CHEST <span style="color:var(--muted);font-size:8px;">· weekly</span></div>
+      <div style="display:flex;gap:6px;align-items:center;margin-top:6px;">
+        <input class="metric-input" type="number" id="chestInput" placeholder="40"
+          style="flex:1;pointer-events:none;opacity:0.5;"
+          oninput="logMetric('chest',this.value)">
+        <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);">in</div>
+      </div>
+      <div id="chestTrend" style="font-size:10px;color:var(--muted);margin-top:4px;text-align:center;">—</div>
+    </div>
+  </div>
+
+  <!-- Push-ups + BMI -->
+  <div class="metric-grid" style="margin-bottom:8px;">
+    <div class="metric-card" style="grid-column:span 2;">
+      <div class="metric-label">MAX PUSH-UPS <span style="color:var(--muted);font-size:8px;">· weekly Sunday test</span></div>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
+        <input class="metric-input" type="number" id="pushupsInput" placeholder="0"
+          style="flex:1;font-size:22px;pointer-events:none;opacity:0.5;"
+          oninput="logMetric('pushups',this.value)">
+        <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);">reps</div>
+      </div>
+      <div id="pushupsTrend" style="font-size:10px;color:var(--muted);margin-top:4px;text-align:center;">Your #1 chest progress indicator</div>
+    </div>
+  </div>
+
+  <div class="chart-card" style="margin-bottom:12px">
+    <div id="hrZonesBanner"></div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);letter-spacing:2px;margin-bottom:4px">DAILY CALORIE TARGET</div>
+      <div style="font-family:'Bebas Neue';font-size:32px;color:var(--accent);line-height:1"><span id="targetKcalDisplay">2,080</span> <span style="font-size:13px;color:var(--muted);font-family:'DM Sans'">kcal</span></div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px">~250 kcal deficit · recomp sweet spot</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);letter-spacing:1px">YOUR BMR</div>
+      <div style="font-family:'Bebas Neue';font-size:20px;color:var(--muted)">~1,696 kcal</div>
+      <div style="font-size:10px;color:var(--muted)">at complete rest</div>
+    </div>
+  </div>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px;">
+    <strong style="color:var(--accent3)">📏 Measurements to track:</strong><br><br>
+    Take these every Sunday morning, same time:<br>
+    <strong style="color:var(--text)">Weight</strong> (lbs) · <strong style="color:var(--text)">Waist</strong> (at navel) · <strong style="color:var(--text)">Chest</strong> (across nipple line) · <strong style="color:var(--text)">Max push-ups</strong> in one set.<br><br>
+    Aim: waist down, chest up, push-ups up. Weight may stay same as you trade fat for muscle — <em style="color:var(--text)">that's progress.</em>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="switchTab('today',this)">
+    <div class="nav-icon">🏋️</div>Today
+  </button>
+  <button class="nav-btn" onclick="switchTab('schedule',this)">
+    <div class="nav-icon">📅</div>Plan
+  </button>
+  <button class="nav-btn" onclick="switchTab('meals',this)">
+    <div class="nav-icon">🍗</div>Meals
+  </button>
+  <button class="nav-btn" onclick="switchTab('run',this)">
+    <div class="nav-icon">🏃</div>Move
+  </button>
+  <button class="nav-btn" onclick="switchTab('progress',this)">
+    <div class="nav-icon">📈</div>Progress
+  </button>
+</nav>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════
+
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const SHORT = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+// 5-day workout plan (Mon-Fri, Sat active, Sun rest)
+const WEEK_PLAN = [
+  { day: 'Monday',    focus: 'Chest & Push',          color: 'var(--accent3)', icon: '💪', duration: '20 min', exercises: ['pushup_wall','chest_squeeze','shoulder_tap','dead_bug'] },
+  { day: 'Tuesday',   focus: 'Core & Stability',       color: 'var(--accent)',  icon: '🧱', duration: '15 min', exercises: ['plank','dead_bug','glute_bridge','bird_dog'] },
+  { day: 'Wednesday', focus: 'Active Recovery',        color: 'var(--green)',   icon: '🚴', duration: '30 min', exercises: ['walk_or_bike'] },
+  { day: 'Thursday',  focus: 'Chest & Upper Body',     color: 'var(--accent3)', icon: '🔥', duration: '20 min', exercises: ['pushup_knee','diamond_pushup','arm_circle','plank'] },
+  { day: 'Friday',    focus: 'Core & Full Body',       color: 'var(--accent)',  icon: '⚡', duration: '20 min', exercises: ['leg_raise','plank','glute_bridge','pushup_knee','bird_dog'] },
+  { day: 'Saturday',  focus: 'Cardio + Full Body',     color: 'var(--orange)',  icon: '🏃', duration: '30 min', exercises: ['jog_walk','pushup_knee','plank','glute_bridge','dead_bug'] },
+  { day: 'Sunday',    focus: 'Rest & Recovery',        color: 'var(--muted)',   icon: '😴', duration: 'Rest',   exercises: [] },
+];
+
+const EXERCISES = {
+  pushup_wall: {
+    name: 'Wall Push-Ups',
+    sets: '3 sets × 12 reps',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Stand arm\'s length from a wall. Place hands flat on wall at shoulder height, shoulder-width apart. Lean in, bending elbows, then push back. Keeps spine neutral — perfect while your back heals.',
+    tips: ['Keep your body in a straight line','Don\'t let hips sag or pike up','Squeeze your chest at the top','Breathe out as you push away'],
+    yt: 'https://www.youtube.com/results?search_query=wall+push+ups+form',
+    svgColor: 'var(--accent3)',
+    svgKey: 'pushup',
+    rest: '60 sec between sets'
+  },
+  pushup_knee: {
+    name: 'Knee Push-Ups',
+    sets: '3 sets × 10–15 reps',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Get on all fours, knees on the floor. Walk hands forward until your body forms a diagonal line from knees to head. Perform push-up motion. More challenging than wall push-ups, still back-safe.',
+    tips: ['Hands slightly wider than shoulder width','Lower chest to just above ground','Keep core tight throughout','Progress to full push-ups when you hit 20 reps easily'],
+    yt: 'https://www.youtube.com/results?search_query=knee+push+up+proper+form',
+    svgColor: 'var(--accent3)',
+    svgKey: 'knee_pushup',
+    rest: '60 sec between sets'
+  },
+  diamond_pushup: {
+    name: 'Diamond Push-Ups',
+    sets: '3 sets × 8–12 reps',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Form a diamond shape with your thumbs and index fingers. Lower your chest toward your hands. Hits inner chest and triceps hard — this is your chest definition builder.',
+    tips: ['Start on knees if needed','Elbows flare slightly outward','Go slow on the way down (3 seconds)','Feel the squeeze in your inner chest'],
+    yt: 'https://www.youtube.com/results?search_query=diamond+push+up+form',
+    svgColor: 'var(--accent3)',
+    svgKey: 'diamond',
+    rest: '90 sec between sets'
+  },
+  chest_squeeze: {
+    name: 'Isometric Chest Squeeze',
+    sets: '3 sets × 15 sec hold',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Press your palms together in front of your chest as hard as possible. Hold for 15 seconds. No equipment needed — activates pec muscles through muscle contraction alone. Great for building mind-muscle connection.',
+    tips: ['Press as hard as possible — 100% effort','Keep elbows at shoulder height','Feel the burn across your chest','Breathe steadily throughout'],
+    yt: 'https://www.youtube.com/results?search_query=isometric+chest+squeeze+exercise',
+    svgColor: 'var(--accent3)',
+    svgKey: 'squeeze',
+    rest: '30 sec between sets'
+  },
+  plank: {
+    name: 'Forearm Plank',
+    sets: '3 sets × 20–30 sec',
+    badge: 'badge-core', badgeText: 'CORE',
+    desc: 'Forearms on the ground, elbows under shoulders. Lift your body so only forearms and toes touch the floor. Keep body in a straight line. Builds deep core muscles without loading the spine — ideal for your back recovery.',
+    tips: ['Don\'t let hips sag or rise','Squeeze glutes and abs hard','Look down at the floor','Breathe — don\'t hold your breath'],
+    yt: 'https://www.youtube.com/results?search_query=forearm+plank+proper+form',
+    svgColor: 'var(--accent)',
+    svgKey: 'plank',
+    rest: '60 sec between sets'
+  },
+  dead_bug: {
+    name: 'Dead Bug',
+    sets: '3 sets × 8 reps each side',
+    badge: 'badge-core', badgeText: 'CORE',
+    desc: 'Lie on your back, arms pointing to ceiling, knees bent 90° in the air. Slowly lower opposite arm and leg toward the floor while pressing your lower back INTO the ground. Return and switch. Arguably the best back-safe core exercise.',
+    tips: ['Lower back MUST stay flat on floor','Move slowly — 3 seconds down','Exhale as you extend','Start small — don\'t fully straighten limbs if back lifts'],
+    yt: 'https://www.youtube.com/results?search_query=dead+bug+exercise+form',
+    svgColor: 'var(--accent)',
+    svgKey: 'dead_bug',
+    rest: '60 sec between sets'
+  },
+  glute_bridge: {
+    name: 'Glute Bridge',
+    sets: '3 sets × 15 reps',
+    badge: 'badge-core', badgeText: 'CORE',
+    desc: 'Lie on your back, knees bent, feet flat on floor hip-width apart. Push through heels to lift your hips until your body forms a straight line from knees to shoulders. Strengthens glutes and lower back support muscles — critical for back health.',
+    tips: ['Drive through your heels, not toes','Squeeze glutes hard at the top','Don\'t hyperextend your lower back','Hold 2 seconds at top for better activation'],
+    yt: 'https://www.youtube.com/results?search_query=glute+bridge+form+tutorial',
+    svgColor: 'var(--accent)',
+    svgKey: 'bridge',
+    rest: '60 sec between sets'
+  },
+  bird_dog: {
+    name: 'Bird Dog',
+    sets: '3 sets × 10 reps each side',
+    badge: 'badge-core', badgeText: 'CORE',
+    desc: 'Start on all fours, hands under shoulders, knees under hips. Extend right arm and left leg simultaneously until both are parallel to the floor. Hold 2 seconds. Switch sides. One of the top physiotherapist-recommended back rehab exercises.',
+    tips: ['Keep hips level — don\'t rotate','Move slowly and controlled','Look down, not forward','Tighten core before every rep'],
+    yt: 'https://www.youtube.com/results?search_query=bird+dog+exercise+back+rehab',
+    svgColor: 'var(--accent)',
+    svgKey: 'bird_dog',
+    rest: '60 sec between sets'
+  },
+  shoulder_tap: {
+    name: 'Shoulder Taps',
+    sets: '3 sets × 10 reps each side',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Get into a push-up position (full or knee). While keeping your hips still, lift one hand and tap the opposite shoulder. Alternate sides. Trains anti-rotation core stability and shoulder strength at the same time.',
+    tips: ['Wider foot stance = more stable','Move hips as little as possible','Do it slowly — speed is cheating','Great chest warm-up before push-ups'],
+    yt: 'https://www.youtube.com/results?search_query=shoulder+tap+exercise+form',
+    svgColor: 'var(--accent3)',
+    svgKey: 'shoulder_tap',
+    rest: '45 sec between sets'
+  },
+  arm_circle: {
+    name: 'Arm Circles + Chest Opener',
+    sets: '2 sets × 20 reps each direction',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Stand tall, arms extended out to sides. Make controlled circles — small to large. Then clasp hands behind your back and open your chest toward the ceiling. Warms up shoulder joints and opens chest for better push-up activation.',
+    tips: ['Keep shoulders down — away from ears','Feel a stretch across your chest','Combine with deep breaths','Do this at the START of every workout'],
+    yt: 'https://www.youtube.com/results?search_query=arm+circles+chest+opener+warmup',
+    svgColor: 'var(--accent3)',
+    svgKey: 'arm_circle',
+    rest: '30 sec between sets'
+  },
+  leg_raise: {
+    name: 'Lying Leg Raises',
+    sets: '3 sets × 10–12 reps',
+    badge: 'badge-core', badgeText: 'CORE',
+    desc: 'Lie on your back, hands under your lower back for support. Keep legs straight and raise them to 90°, then slowly lower to just above the floor. Hits lower abs — the area right above the belly you want to trim.',
+    tips: ['STOP if you feel lower back strain','Keep lower back pressed to floor','Slow on the way down counts more','Bend knees slightly if needed'],
+    yt: 'https://www.youtube.com/results?search_query=lying+leg+raise+abs+form',
+    svgColor: 'var(--accent)',
+    svgKey: 'leg_raise',
+    rest: '60 sec between sets'
+  },
+  jog_walk: {
+    name: 'Walk / Jog Intervals',
+    sets: '20–30 min total',
+    badge: 'badge-cardio', badgeText: 'CARDIO',
+    desc: 'Alternate 2 minutes walking with 1 minute light jogging. Over time flip the ratio. This is also the day to go biking or skateboarding — whatever gets you moving for 30 minutes. Easy cardio burns belly fat without muscle breakdown.',
+    tips: ['Keep pace conversational — you should be able to talk','Biking or skateboarding counts equally','If back hurts, stick to flat walking','This is your "fun" day — enjoy it'],
+    yt: 'https://www.youtube.com/results?search_query=walk+jog+interval+beginner',
+    svgColor: 'var(--green)',
+    svgKey: 'jog',
+    rest: 'N/A'
+  },
+  walk_or_bike: {
+    name: 'Walk, Bike or Skate',
+    sets: '30 min easy effort',
+    badge: 'badge-cardio', badgeText: 'CARDIO',
+    desc: 'Today is active recovery — keep your heart rate low (you can hold a conversation). Walk the neighborhood, hop on your bike, or grab your skateboard. The goal is to keep blood flowing for muscle recovery, not to push hard.',
+    tips: ['Heart rate should stay relaxed','Enjoy it — this is not a punishment day','Good time to explore a new route','Hydrate well before and after'],
+    yt: 'https://www.youtube.com/results?search_query=active+recovery+day+what+to+do',
+    svgColor: 'var(--green)',
+    svgKey: 'walk',
+    rest: 'N/A'
+  },
+};
+
+// SVG Diagrams (inline animated stick figures)
+function getSVG(key, color) {
+  const c = color || '#00d4ff';
+  const svgs = {
+    pushup: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="20" y1="100" x2="180" y2="100" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="20" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">WALL PUSH-UP</text>
+      <line x1="30" y1="30" x2="30" y2="100" stroke="#252540" stroke-width="4"/>
+      <!-- figure -->
+      <circle cx="130" cy="42" r="10" fill="none" stroke="${c}" stroke-width="2"/>
+      <line x1="130" y1="52" x2="130" y2="80" stroke="${c}" stroke-width="2.5"/>
+      <line x1="130" y1="62" x2="75" y2="70" stroke="${c}" stroke-width="2.5"/>
+      <line x1="75" y1="70" x2="30" y2="68" stroke="${c}" stroke-width="2.5"/>
+      <circle cx="30" cy="68" r="5" fill="${c}" opacity="0.5"/>
+      <line x1="130" y1="80" x2="115" y2="105" stroke="${c}" stroke-width="2.5"/>
+      <line x1="130" y1="80" x2="145" y2="105" stroke="${c}" stroke-width="2.5"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;8,0;0,0" dur="2s" repeatCount="indefinite"/>
+    </svg>`,
+    plank: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="105" x2="190" y2="105" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="20" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">FOREARM PLANK</text>
+      <!-- body -->
+      <line x1="40" y1="90" x2="165" y2="90" stroke="${c}" stroke-width="4" stroke-linecap="round"/>
+      <!-- forearms -->
+      <line x1="40" y1="90" x2="40" y2="105" stroke="${c}" stroke-width="3"/>
+      <line x1="30" y1="105" x2="55" y2="105" stroke="${c}" stroke-width="3"/>
+      <!-- toes -->
+      <line x1="165" y1="90" x2="165" y2="105" stroke="${c}" stroke-width="3"/>
+      <!-- head -->
+      <circle cx="165" cy="80" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- core highlight -->
+      <line x1="90" y1="90" x2="130" y2="90" stroke="${c}" stroke-width="6" opacity="0.3"/>
+      <text x="110" y="85" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.7">CORE TIGHT</text>
+    </svg>`,
+    dead_bug: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="100" x2="190" y2="100" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="16" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">DEAD BUG</text>
+      <!-- torso on back -->
+      <line x1="60" y1="100" x2="140" y2="100" stroke="${c}" stroke-width="4"/>
+      <circle cx="145" cy="91" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- right arm up, left arm extend -->
+      <line x1="130" y1="100" x2="130" y2="60" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="100" x2="60" y2="65" stroke="${c}" stroke-width="2.5" opacity="0.5"/>
+      <!-- legs -->
+      <line x1="75" y1="100" x2="55" y2="70" stroke="${c}" stroke-width="2.5"/>
+      <line x1="55" y1="70" x2="35" y2="55" stroke="${c}" stroke-width="2.5" opacity="0.5"/>
+      <line x1="90" y1="100" x2="115" y2="70" stroke="${c}" stroke-width="2.5"/>
+      <line x1="115" y1="70" x2="150" y2="55" stroke="${c}" stroke-width="2.5"/>
+      <text x="100" y="125" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.6">BACK FLAT ON FLOOR</text>
+    </svg>`,
+    bridge: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="115" x2="190" y2="115" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">GLUTE BRIDGE</text>
+      <!-- arms on floor -->
+      <line x1="40" y1="115" x2="100" y2="115" stroke="${c}" stroke-width="3"/>
+      <!-- thighs -->
+      <line x1="80" y1="115" x2="100" y2="80" stroke="${c}" stroke-width="3"/>
+      <line x1="120" y1="115" x2="100" y2="80" stroke="${c}" stroke-width="3"/>
+      <!-- hips up -->
+      <line x1="100" y1="80" x2="140" y2="75" stroke="${c}" stroke-width="4"/>
+      <!-- upper back on floor angle -->
+      <line x1="40" y1="105" x2="100" y2="80" stroke="${c}" stroke-width="3"/>
+      <!-- head -->
+      <circle cx="35" cy="103" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- feet -->
+      <line x1="80" y1="115" x2="72" y2="115" stroke="${c}" stroke-width="3"/>
+      <line x1="120" y1="115" x2="128" y2="115" stroke="${c}" stroke-width="3"/>
+      <text x="120" y="72" text-anchor="start" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.7">SQUEEZE</text>
+    </svg>`,
+    bird_dog: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">BIRD DOG</text>
+      <!-- on all fours -->
+      <line x1="70" y1="70" x2="130" y2="70" stroke="${c}" stroke-width="4"/>
+      <!-- down arms -->
+      <line x1="80" y1="70" x2="80" y2="95" stroke="${c}" stroke-width="2.5"/>
+      <line x1="120" y1="70" x2="120" y2="95" stroke="${c}" stroke-width="2.5"/>
+      <!-- head -->
+      <circle cx="138" cy="63" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- extended arm -->
+      <line x1="138" y1="70" x2="170" y2="60" stroke="${c}" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <!-- extended leg -->
+      <line x1="70" y1="70" x2="38" y2="60" stroke="${c}" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <!-- down knee -->
+      <line x1="80" y1="95" x2="88" y2="95" stroke="${c}" stroke-width="3"/>
+      <line x1="120" y1="95" x2="112" y2="95" stroke="${c}" stroke-width="3"/>
+      <text x="100" y="115" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.6">HIPS LEVEL · MOVE SLOW</text>
+    </svg>`,
+    knee_pushup: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="105" x2="190" y2="105" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">KNEE PUSH-UP</text>
+      <!-- body diagonal -->
+      <line x1="50" y1="105" x2="145" y2="65" stroke="${c}" stroke-width="4"/>
+      <!-- head -->
+      <circle cx="153" cy="57" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- arms -->
+      <line x1="120" y1="75" x2="120" y2="105" stroke="${c}" stroke-width="2.5"/>
+      <line x1="145" y1="65" x2="155" y2="95" stroke="${c}" stroke-width="2.5"/>
+      <!-- hands -->
+      <circle cx="120" cy="105" r="4" fill="${c}" opacity="0.5"/>
+      <circle cx="155" cy="95" r="4" fill="${c}" opacity="0.5"/>
+      <!-- knees on floor -->
+      <circle cx="50" cy="105" r="5" fill="${c}" opacity="0.4"/>
+      <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="1.8s" repeatCount="indefinite"/>
+    </svg>`,
+    diamond: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">DIAMOND PUSH-UP</text>
+      <!-- diamond hand shape -->
+      <polygon points="100,95 88,107 100,119 112,107" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- arms from chest -->
+      <line x1="85" y1="65" x2="88" y2="107" stroke="${c}" stroke-width="2.5"/>
+      <line x1="115" y1="65" x2="112" y2="107" stroke="${c}" stroke-width="2.5"/>
+      <!-- torso -->
+      <line x1="85" y1="65" x2="115" y2="65" stroke="${c}" stroke-width="4"/>
+      <!-- legs -->
+      <line x1="85" y1="65" x2="50" y2="90" stroke="${c}" stroke-width="2.5"/>
+      <line x1="115" y1="65" x2="150" y2="90" stroke="${c}" stroke-width="2.5"/>
+      <!-- head -->
+      <circle cx="100" cy="50" r="10" fill="none" stroke="${c}" stroke-width="2"/>
+      <text x="100" y="130" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.7">INNER CHEST BUILDER</text>
+    </svg>`,
+    shoulder_tap: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="110" x2="190" y2="110" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">SHOULDER TAP</text>
+      <!-- plank position -->
+      <line x1="40" y1="85" x2="155" y2="85" stroke="${c}" stroke-width="4"/>
+      <circle cx="163" cy="77" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- one hand up -->
+      <line x1="120" y1="85" x2="120" y2="110" stroke="${c}" stroke-width="2.5"/>
+      <circle cx="120" cy="110" r="4" fill="${c}" opacity="0.4"/>
+      <!-- raised hand tapping shoulder -->
+      <line x1="80" y1="85" x2="95" y2="70" stroke="${c}" stroke-width="2.5" stroke-dasharray="4,2"/>
+      <circle cx="100" cy="67" r="5" fill="${c}" opacity="0.6"/>
+      <!-- other hand on floor -->
+      <line x1="60" y1="85" x2="60" y2="110" stroke="${c}" stroke-width="2.5"/>
+      <circle cx="60" cy="110" r="4" fill="${c}" opacity="0.4"/>
+      <!-- feet -->
+      <line x1="40" y1="85" x2="40" y2="110" stroke="${c}" stroke-width="2.5"/>
+    </svg>`,
+    squeeze: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">ISOMETRIC CHEST SQUEEZE</text>
+      <circle cx="100" cy="55" r="13" fill="none" stroke="${c}" stroke-width="2"/>
+      <line x1="100" y1="68" x2="100" y2="100" stroke="${c}" stroke-width="3"/>
+      <!-- arms pressed together -->
+      <line x1="100" y1="78" x2="70" y2="75" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="78" x2="130" y2="75" stroke="${c}" stroke-width="2.5"/>
+      <line x1="70" y1="75" x2="70" y2="85" stroke="${c}" stroke-width="2.5"/>
+      <line x1="130" y1="75" x2="130" y2="85" stroke="${c}" stroke-width="2.5"/>
+      <!-- pressure arrows -->
+      <line x1="50" y1="80" x2="68" y2="80" stroke="${c}" stroke-width="2" marker-end="url(#arr)"/>
+      <line x1="150" y1="80" x2="132" y2="80" stroke="${c}" stroke-width="2"/>
+      <!-- force indicators -->
+      <text x="100" y="80" text-anchor="middle" fill="${c}" font-size="9" font-family="Space Mono">← PRESS →</text>
+      <line x1="75" y1="100" x2="88" y2="115" stroke="${c}" stroke-width="2.5"/>
+      <line x1="125" y1="100" x2="112" y2="115" stroke="${c}" stroke-width="2.5"/>
+      <text x="100" y="130" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.7">SQUEEZE 100% · 15 SEC HOLD</text>
+    </svg>`,
+    arm_circle: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">ARM CIRCLES</text>
+      <circle cx="100" cy="48" r="11" fill="none" stroke="${c}" stroke-width="2"/>
+      <line x1="100" y1="59" x2="100" y2="95" stroke="${c}" stroke-width="3"/>
+      <!-- arms out -->
+      <line x1="100" y1="70" x2="50" y2="65" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="70" x2="150" y2="65" stroke="${c}" stroke-width="2.5"/>
+      <!-- circle arcs at hands -->
+      <circle cx="50" cy="65" r="12" fill="none" stroke="${c}" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,3"/>
+      <circle cx="150" cy="65" r="12" fill="none" stroke="${c}" stroke-width="1.5" opacity="0.4" stroke-dasharray="4,3"/>
+      <!-- legs -->
+      <line x1="100" y1="95" x2="85" y2="125" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="95" x2="115" y2="125" stroke="${c}" stroke-width="2.5"/>
+    </svg>`,
+    leg_raise: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="100" x2="190" y2="100" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">LYING LEG RAISE</text>
+      <!-- body on back -->
+      <line x1="40" y1="100" x2="130" y2="100" stroke="${c}" stroke-width="4"/>
+      <circle cx="135" cy="92" r="9" fill="none" stroke="${c}" stroke-width="2"/>
+      <!-- legs raised -->
+      <line x1="50" y1="100" x2="50" y2="55" stroke="${c}" stroke-width="2.5"/>
+      <line x1="70" y1="100" x2="70" y2="55" stroke="${c}" stroke-width="2.5"/>
+      <line x1="50" y1="55" x2="70" y2="55" stroke="${c}" stroke-width="2.5"/>
+      <!-- hands under hips -->
+      <circle cx="90" cy="100" r="5" fill="${c}" opacity="0.4"/>
+      <circle cx="105" cy="100" r="5" fill="${c}" opacity="0.4"/>
+      <text x="60" y="48" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.7">90°</text>
+      <text x="100" y="122" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.6">BACK FLAT · CORE TIGHT</text>
+    </svg>`,
+    jog: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="110" x2="190" y2="110" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">WALK / JOG INTERVAL</text>
+      <!-- running figure -->
+      <circle cx="100" cy="45" r="11" fill="none" stroke="${c}" stroke-width="2"/>
+      <line x1="100" y1="56" x2="100" y2="85" stroke="${c}" stroke-width="3"/>
+      <!-- arms swing -->
+      <line x1="100" y1="68" x2="75" y2="60" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="68" x2="128" y2="80" stroke="${c}" stroke-width="2.5"/>
+      <!-- legs stride -->
+      <line x1="100" y1="85" x2="75" y2="110" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="85" x2="130" y2="100" stroke="${c}" stroke-width="2.5"/>
+      <line x1="130" y1="100" x2="140" y2="110" stroke="${c}" stroke-width="2.5"/>
+      <!-- motion lines -->
+      <line x1="30" y1="65" x2="48" y2="65" stroke="${c}" stroke-width="1.5" opacity="0.3"/>
+      <line x1="25" y1="75" x2="43" y2="75" stroke="${c}" stroke-width="1.5" opacity="0.3"/>
+      <line x1="28" y1="85" x2="46" y2="85" stroke="${c}" stroke-width="1.5" opacity="0.3"/>
+    </svg>`,
+    walk: `<svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+      <rect width="200" height="140" fill="#10101c"/>
+      <line x1="10" y1="110" x2="190" y2="110" stroke="#252540" stroke-width="2"/>
+      <text x="100" y="18" text-anchor="middle" fill="#5a5a88" font-size="9" font-family="Space Mono">ACTIVE RECOVERY</text>
+      <circle cx="100" cy="45" r="11" fill="none" stroke="${c}" stroke-width="2"/>
+      <line x1="100" y1="56" x2="100" y2="85" stroke="${c}" stroke-width="3"/>
+      <line x1="100" y1="68" x2="78" y2="78" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="68" x2="122" y2="58" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="85" x2="80" y2="110" stroke="${c}" stroke-width="2.5"/>
+      <line x1="100" y1="85" x2="125" y2="110" stroke="${c}" stroke-width="2.5"/>
+      <text x="100" y="130" text-anchor="middle" fill="${c}" font-size="8" font-family="Space Mono" opacity="0.6">EASY PACE · ENJOY IT</text>
+    </svg>`,
+  };
+  return svgs[key] || svgs['plank'];
+}
+
+// ══════════════════════════════════════════
+// MEAL TAB NAVIGATION
+// ══════════════════════════════════════════
+function mealNav(section) {
+  ['eating-out','home','plan','prefs'].forEach(s => {
+    const sec = document.getElementById('msec-' + s);
+    const btn = document.getElementById('mnav-' + s);
+    if (sec) sec.style.display = s === section ? 'block' : 'none';
+    if (btn) {
+      btn.style.border = s === section ? '2px solid var(--accent)' : '1px solid var(--border)';
+      btn.style.background = s === section ? 'rgba(232,255,0,0.1)' : 'var(--card)';
+      btn.style.color = s === section ? 'var(--accent)' : 'var(--muted)';
+    }
+  });
+  if (section === 'plan') renderMeals();
+  if (section === 'prefs') buildPrefsUI();
+  if (section === 'eating-out') renderRestaurantGuide();
+  if (section === 'home') renderHomeCooking();
+}
+
+// ══════════════════════════════════════════
+// RESTAURANT GUIDE DATA
+// ══════════════════════════════════════════
+const RESTAURANTS = [
+  {
+    name: "McDonald's", icon: "🍟", color: "#f4c430",
+    sections: [
+      { label: "BEST BREAKFAST", items: [
+        { name: "Sausage Egg & Cheese McMuffin", why: "Your go-to — solid protein, English muffin beats the McGriddle on sugar.", stats: "~480 cal · 21g protein", tag: "✅ BEST PICK" },
+        { name: "Egg & Cheese McMuffin (no sausage)", why: "Lighter option when you want to cut calories slightly. Add a hash brown if still hungry.", stats: "~300 cal · 17g protein", tag: "💡 LIGHTER" },
+        { name: "Steak Egg & Cheese Bagel", why: "Your steak version — solid choice, skip the bagel sauce. Higher cal but more filling.", stats: "~670 cal · 40g protein", tag: "💪 HIGH PROTEIN" },
+        { name: "McGriddle — skip when possible", why: "The syrup-baked bun spikes blood sugar fast, leaving you hungrier by 10am. Switch to McMuffin when you can.", stats: "~550 cal · 18g protein", tag: "⚠️ LIMIT" },
+      ]},
+      { label: "QUICK GRAB (spiral-breaker)", items: [
+        { name: "Nutri-Grain Bar from home + water", why: "Before you even get to McDonald's — eat this in the car. You'll order smarter and smaller.", stats: "~130 cal · 2g protein", tag: "🔥 DO THIS" },
+      ]},
+      { label: "BEST LUNCH/DINNER", items: [
+        { name: "Double Cheeseburger", why: "Best value protein on the menu. Skip the fries or swap for apple slices.", stats: "~450 cal · 25g protein", tag: "✅ BEST PICK" },
+        { name: "McChicken + Side Salad", why: "Lighter combo, still filling. Skip the mayo packet.", stats: "~400 cal · 22g protein", tag: "💡 LIGHTER" },
+      ]},
+    ]
+  },
+  {
+    name: "Panera Bread", icon: "🥐", color: "#8B4513",
+    sections: [
+      { label: "BEST BREAKFAST", items: [
+        { name: "Sausage, Egg & Cheese on Asiago Bagel", why: "Your usual — solid. The Asiago bagel is dense so it fills you up. Don't add extra sauce.", stats: "~620 cal · 28g protein", tag: "✅ YOUR ORDER" },
+        { name: "Ham & Cheese Croissant", why: "Lighter than the bagel sandwich, good protein. Good choice on lighter days.", stats: "~420 cal · 20g protein", tag: "💡 LIGHTER" },
+        { name: "Bacon Sausage Egg & Cheese Croissant", why: "Fine occasionally, but the highest cal of your usual picks. Skip if you're having a bigger lunch.", stats: "~720 cal · 30g protein", tag: "⚠️ HEAVIER" },
+        { name: "Starbucks Sous Vide Egg Bites (2)", why: "The cleanest fast breakfast option out there. High protein, low carb. Grab these when you're near a Starbucks.", stats: "~300 cal · 19g protein", tag: "🏆 CLEANEST" },
+      ]},
+    ]
+  },
+  {
+    name: "Burger King", icon: "👑", color: "#D4501A",
+    sections: [
+      { label: "BEST BREAKFAST", items: [
+        { name: "Sausage, Egg & Cheese Croissan'wich", why: "Your usual BK order — solid. Same logic as McDonald's, English muffin version is slightly better.", stats: "~500 cal · 19g protein", tag: "✅ YOUR ORDER" },
+        { name: "French Toast Sticks — limit", why: "All sugar, very little protein. They won't hold you till lunch. Grab these only as a treat.", stats: "~380 cal · 6g protein", tag: "⚠️ LIMIT" },
+      ]},
+      { label: "BEST LUNCH/DINNER", items: [
+        { name: "Whopper Jr. (no mayo)", why: "Solid burger, skip mayo to cut ~90 calories without losing flavor.", stats: "~310 cal · 17g protein", tag: "✅ BEST PICK" },
+        { name: "Grilled Chicken Sandwich", why: "Cleaner protein option. Add mustard instead of mayo.", stats: "~430 cal · 37g protein", tag: "💪 HIGH PROTEIN" },
+      ]},
+    ]
+  },
+  {
+    name: "Chipotle", icon: "🌯", color: "#A81612",
+    sections: [
+      { label: "YOUR BEST BOWL/BURRITO", items: [
+        { name: "Chicken or Steak Bowl — White Rice, Black Beans, Cheese, Sour Cream", why: "Your go-to order is actually solid. The protein + rice + fat combo keeps you full for hours. Consider adding fajita veggies — they're free and add fiber that slows digestion.", stats: "~750 cal · 45g protein (bowl)", tag: "✅ YOUR ORDER" },
+        { name: "Half & Half (chicken + steak)", why: "Best of both proteins. Ask for it — they do it.", stats: "~800 cal · 50g protein", tag: "💪 HIGH PROTEIN" },
+        { name: "Sofritas Bowl", why: "Plant protein option for lighter days. Add extra cheese to keep it filling.", stats: "~600 cal · 22g protein", tag: "💡 LIGHTER" },
+        { name: "Brown rice swap", why: "Higher fiber, keeps you fuller longer. Worth the swap a few days a week.", stats: "Same approx cal", tag: "💡 UPGRADE" },
+      ]},
+    ]
+  },
+  {
+    name: "Subway / Hungry Bear / Super Subs", icon: "🥖", color: "#00843D",
+    sections: [
+      { label: "YOUR BEST ORDERS", items: [
+        { name: "Chicken Cordon Bleu — Honey Mustard, Provolone, Bacon, Mayo (your usual)", why: "This is genuinely a solid sub. White bread isn't ideal but the protein from chicken + bacon is good. Consider wheat bread occasionally.", stats: "~700 cal · 48g protein (footlong)", tag: "✅ YOUR ORDER" },
+        { name: "Tuna Sub — Oil & Vinegar, lettuce, no tomato", why: "High protein, omega-3s good for inflammation and joint health. Good for your back recovery.", stats: "~560 cal · 36g protein (6-inch)", tag: "💪 BACK-FRIENDLY" },
+        { name: "Club Sub — Turkey, Ham, Roast Beef", why: "Three proteins, solid macros. Skip mayo, use mustard or oil & vinegar.", stats: "~640 cal · 44g protein (footlong)", tag: "✅ SOLID PICK" },
+        { name: "Cheesesteak", why: "Your other usual — good. Ask for extra beef, light on the cheese whiz if available.", stats: "~690 cal · 40g protein (footlong)", tag: "✅ YOUR ORDER" },
+      ]},
+    ]
+  },
+  {
+    name: "Chick-fil-A / Popeyes", icon: "🍗", color: "#E4002B",
+    sections: [
+      { label: "BEST ORDERS", items: [
+        { name: "Chick-fil-A — Grilled Chicken Sandwich + waffle fries", why: "The grilled version has 40g protein and barely any fat. Waffle fries are fine — you're earning them with your workouts.", stats: "~620 cal · 43g protein", tag: "🏆 BEST FAST FOOD PICK" },
+        { name: "Chick-fil-A — Grilled Nuggets (8 count)", why: "Best protein-to-calorie ratio on any fast food menu. Swap fries for a fruit cup to cut 200 calories.", stats: "~260 cal · 38g protein", tag: "💪 HIGHEST PROTEIN" },
+        { name: "Popeyes — Chicken Sandwich (no mayo)", why: "It's fried but the chicken portion is generous. Skip the mayo, get the sandwich only.", stats: "~480 cal · 28g protein", tag: "✅ SOLID PICK" },
+        { name: "Popeyes — 3-piece Chicken Tenders", why: "Skip the biscuit, go for the tenders. Better protein ratio than the sandwich.", stats: "~420 cal · 32g protein", tag: "💡 BETTER OPTION" },
+      ]},
+    ]
+  },
+  {
+    name: "Taco Bell", icon: "🔔", color: "#702082",
+    sections: [
+      { label: "YOUR BEST ORDERS", items: [
+        { name: "Chicken Chalupa", why: "Your go-to — the chalupa shell has more protein than a regular taco shell. Chicken is the best protein choice here.", stats: "~340 cal · 16g protein each", tag: "✅ YOUR ORDER" },
+        { name: "Chicken Soft Tacos (2)", why: "Cleanest option on the menu. Low cal, decent protein, fills you up with 2.", stats: "~340 cal · 20g protein (2)", tag: "💡 CLEANEST" },
+        { name: "Cheesy Rollup w/ Beef", why: "Your comfort order — it's fine as a side or snack. Not a full meal on its own.", stats: "~210 cal · 9g protein", tag: "🍟 SIDE ONLY" },
+        { name: "Mexican Pizza", why: "Higher cal but it's a real meal. Limit to once a week max.", stats: "~540 cal · 20g protein", tag: "⚠️ TREAT" },
+        { name: "Cheesy Bean & Rice Burrito", why: "Plant protein option, surprisingly filling. Good lighter day choice.", stats: "~420 cal · 12g protein", tag: "💡 LIGHTER" },
+      ]},
+    ]
+  },
+  {
+    name: "Chicken Kitchen", icon: "🍚", color: "#FFB400",
+    sections: [
+      { label: "YOUR ORDER IS ALREADY GREAT", items: [
+        { name: "Original Chop Chop Regular — Yellow Rice, Grilled Chicken, Curry Mustard Sauce (3 cups)", why: "This is one of the cleanest fast casual meals you can get. Grilled chicken no skin, yellow rice, light sauce. Keep ordering this.", stats: "~550 cal · 42g protein", tag: "🏆 KEEP THIS" },
+        { name: "Churrasco Chop Chop", why: "The churrasco version adds more flavor with similar macros. Great swap when you want something different.", stats: "~580 cal · 44g protein", tag: "✅ GREAT SWAP" },
+      ]},
+    ]
+  },
+  {
+    name: "Mexican Restaurant (Fast Casual)", icon: "🌮", color: "#C8522A",
+    sections: [
+      { label: "BEST ORDERS", items: [
+        { name: "Chicken Soft Tacos (2-3)", why: "Your preference. Ask for grilled chicken, light on the sour cream. Skip the tortilla chips or limit to a small handful.", stats: "~480 cal · 36g protein (3 tacos)", tag: "✅ YOUR ORDER" },
+        { name: "Grilled Chicken Bowl (rice + beans)", why: "Chipotle-style bowl at a sit-down spot. Clean, filling, high protein.", stats: "~650 cal · 44g protein", tag: "💪 HIGH PROTEIN" },
+        { name: "Skip the chips basket", why: "This is where calories sneak in before the food even arrives. Ask them not to bring it or commit to just 10 chips.", stats: "~300 cal sneak attack", tag: "⚠️ WATCH OUT" },
+      ]},
+    ]
+  },
+];
+
+const HOME_COOKING = {
+  breakfast: [
+    { name: "Scrambled Eggs with Ham, Sausage & Cheese", time:"10 min", difficulty:"Easy",
+      steps: ["Heat a non-stick pan over medium heat","Cook 2 sausage links or 3 strips of bacon first, set aside","In same pan, scramble 3 eggs with a splash of milk","Add diced ham and shredded cheese while still wet","Fold and serve — add hot sauce if you like"],
+      why: "Your ideal home breakfast. ~35g protein, keeps you full till noon.", stats:"~480 cal · 35g protein", tag:"🏠 YOUR GO-TO" },
+    { name: "Quick Air Fryer Egg Bites", time:"12 min", difficulty:"Easy",
+      steps: ["Whisk 3 eggs with 2 tbsp milk, salt, pepper","Add diced ham or crumbled sausage + shredded cheese","Pour into silicone muffin cups (or ramekins)","Air fryer 300°F for 10-12 minutes","Makes 3-4 egg bites — eat all of them"],
+      why: "Meal prep 6-8 at once, reheat in 2 minutes all week.", stats:"~320 cal · 28g protein", tag:"⏱️ MEAL PREP" },
+    { name: "Nutri-Grain Bar (spiral-breaker)", time:"0 min", difficulty:"None",
+      steps: ["Grab one from the pantry","Eat it within 30 minutes of waking up","Follow with a big glass of water","This is enough to stop the starvation spiral until a real meal"],
+      why: "Not a full breakfast but beats skipping entirely. Prevents the 11am crash and over-ordering at lunch.", stats:"~130 cal · 2g protein", tag:"🔥 ALWAYS HAVE THESE" },
+  ],
+  dinner_grill: [
+    { name: "BBQ Grilled Chicken Thighs", time:"25 min", difficulty:"Easy",
+      steps: ["Season chicken thighs: garlic powder, onion powder, paprika, salt, pepper","Grill on medium-high 6-7 min per side until 165°F internal","Last 2 minutes: brush with BBQ sauce or just keep it dry","Serve with whatever side you have — rice, corn, nothing"],
+      why: "Bone-in thighs are more forgiving on the grill than breasts. More fat = more flavor = better for testosterone at 49.", stats:"~380 cal · 38g protein (2 thighs)", tag:"🔥 BBQ STAPLE" },
+    { name: "Grilled Tilapia with Garlic Butter", time:"15 min", difficulty:"Easy",
+      steps: ["Season tilapia: salt, pepper, garlic powder, squeeze of lemon","Grill 3-4 min per side on medium-high — it cooks FAST","Melt butter with minced garlic in microwave 30 seconds","Drizzle over fish when plating","Don't overcook — it should flake easily"],
+      why: "One of the fastest proteins on the grill. Mild flavor, pairs with anything.", stats:"~280 cal · 38g protein (6oz)", tag:"⚡ FASTEST" },
+    { name: "Grilled Steak (Sirloin or Skirt)", time:"20 min", difficulty:"Medium",
+      steps: ["Take steak out 20 min before grilling — room temp cooks more evenly","Season generously: salt, pepper, garlic powder","Grill on HIGH heat — 4 min per side for medium rare, 5-6 for medium","Rest 5 minutes before cutting — this is non-negotiable","Slice against the grain"],
+      why: "Once a week. Best amino acid profile for muscle building. Saturday treat.", stats:"~380 cal · 46g protein (6oz sirloin)", tag:"💪 MUSCLE BUILDER" },
+    { name: "Churrasco-Style Chicken (Chicken Kitchen at home)", time:"20 min",
+      difficulty:"Easy",
+      steps: ["Butterfly or pound chicken breast thin","Marinate 30 min: olive oil, garlic, cumin, oregano, salt, lemon juice","Grill 4-5 min per side on high heat","Chop up rough like Chicken Kitchen does","Mix 1 tbsp yellow mustard + 1 tsp curry powder for the sauce"],
+      why: "Tastes like your Chicken Kitchen order. Costs a fraction of the price.", stats:"~320 cal · 42g protein", tag:"🏠 RESTAURANT AT HOME" },
+  ],
+  dinner_indoor: [
+    { name: "Air Fryer Chicken Thighs", time:"25 min", difficulty:"Easy",
+      steps: ["Season thighs: garlic powder, paprika, salt, pepper, olive oil rub","Air fryer 380°F for 22-25 minutes, flip halfway","Check 165°F internal temp","Skin comes out crispy — almost as good as the grill"],
+      why: "Best rainy day alternative to grilling. Crispy skin, juicy inside.", stats:"~350 cal · 36g protein", tag:"🌧️ RAINY DAY" },
+    { name: "Air Fryer Shrimp", time:"10 min", difficulty:"Easy",
+      steps: ["Season shrimp: butter, garlic powder, paprika, salt","Air fryer 400°F for 8-10 minutes","Serve over rice or just as is with a dipping sauce","Season heavily — shrimp absorbs flavor fast"],
+      why: "Fastest protein you can make. 10 minutes start to finish.", stats:"~220 cal · 28g protein (6oz)", tag:"⚡ FASTEST INDOOR" },
+    { name: "Oven Baked Tilapia", time:"20 min", difficulty:"Easy",
+      steps: ["Preheat oven to 400°F","Season tilapia: lemon juice, garlic, salt, pepper, paprika","Bake 15-17 minutes until it flakes","Squeeze fresh lemon over before serving"],
+      why: "Completely hands-off. Put it in the oven, set a timer, done.", stats:"~260 cal · 36g protein (6oz)", tag:"🏠 HANDS-OFF" },
+    { name: "Egg Scramble (breakfast-for-dinner)", time:"10 min", difficulty:"Easy",
+      steps: ["Cook 3 eggs scrambled with whatever protein you have","Ham, leftover chicken, sausage, shrimp — all work","Add cheese at the end","Serve with toast or rice"],
+      why: "When you have nothing planned. Eggs are always in the fridge.", stats:"~380 cal · 30g protein", tag:"🆘 EMERGENCY MEAL" },
+  ],
+};
+
+function renderRestaurantGuide() {
+  const container = document.getElementById('restaurantGuide');
+  if (!container) return;
+  container.innerHTML = '';
+  const tagColors = {
+    '✅ BEST PICK':'rgba(0,255,136,0.1)', '✅ YOUR ORDER':'rgba(0,255,136,0.1)',
+    '✅ SOLID PICK':'rgba(0,255,136,0.1)', '✅ GREAT SWAP':'rgba(0,255,136,0.1)',
+    '💪 HIGH PROTEIN':'rgba(77,159,255,0.1)', '💪 BACK-FRIENDLY':'rgba(77,159,255,0.1)',
+    '💪 MUSCLE BUILDER':'rgba(77,159,255,0.1)', '💪 HIGHEST PROTEIN':'rgba(77,159,255,0.1)',
+    '🏆 BEST FAST FOOD PICK':'rgba(232,255,0,0.1)', '🏆 CLEANEST':'rgba(232,255,0,0.1)',
+    '🏆 KEEP THIS':'rgba(232,255,0,0.1)',
+    '💡 LIGHTER':'rgba(90,90,136,0.15)', '💡 UPGRADE':'rgba(90,90,136,0.15)',
+    '💡 CLEANEST':'rgba(90,90,136,0.15)', '💡 BETTER OPTION':'rgba(90,90,136,0.15)',
+    '⚠️ LIMIT':'rgba(255,69,102,0.1)', '⚠️ HEAVIER':'rgba(255,69,102,0.1)',
+    '⚠️ TREAT':'rgba(255,69,102,0.1)', '⚠️ WATCH OUT':'rgba(255,69,102,0.1)',
+    '🔥 DO THIS':'rgba(255,150,64,0.15)', '🔥 ALWAYS HAVE THESE':'rgba(255,150,64,0.15)',
+    '🍟 SIDE ONLY':'rgba(90,90,136,0.15)',
+  };
+  const tagTextColors = {
+    '✅ BEST PICK':'var(--green)', '✅ YOUR ORDER':'var(--green)',
+    '✅ SOLID PICK':'var(--green)', '✅ GREAT SWAP':'var(--green)',
+    '💪 HIGH PROTEIN':'var(--accent3)', '💪 BACK-FRIENDLY':'var(--accent3)',
+    '💪 MUSCLE BUILDER':'var(--accent3)', '💪 HIGHEST PROTEIN':'var(--accent3)',
+    '🏆 BEST FAST FOOD PICK':'var(--accent)', '🏆 CLEANEST':'var(--accent)',
+    '🏆 KEEP THIS':'var(--accent)',
+    '💡 LIGHTER':'var(--muted)', '💡 UPGRADE':'var(--muted)',
+    '💡 CLEANEST':'var(--muted)', '💡 BETTER OPTION':'var(--muted)',
+    '⚠️ LIMIT':'var(--accent2)', '⚠️ HEAVIER':'var(--accent2)',
+    '⚠️ TREAT':'var(--accent2)', '⚠️ WATCH OUT':'var(--accent2)',
+    '🔥 DO THIS':'var(--orange)', '🔥 ALWAYS HAVE THESE':'var(--orange)',
+    '🍟 SIDE ONLY':'var(--muted)',
+  };
+
+  RESTAURANTS.forEach(r => {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;';
+    const header = `<div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.oa').classList.toggle('rotated')" style="display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;">
+      <span style="font-size:26px;">${r.icon}</span>
+      <div style="flex:1;">
+        <div style="font-family:'Bebas Neue';font-size:22px;color:${r.color};letter-spacing:1px;">${r.name}</div>
+        <div style="font-size:11px;color:var(--muted);">${r.sections.reduce((a,s)=>a+s.items.length,0)} smart picks</div>
+      </div>
+      <div class="oa open-arrow" style="color:var(--muted);font-size:16px;">›</div>
+    </div>`;
+
+    let body = '<div style="display:none;border-top:1px solid var(--border);">';
+    r.sections.forEach(sec => {
+      body += `<div style="padding:12px 16px 4px;font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);">${sec.label}</div>`;
+      sec.items.forEach(item => {
+        const bg = tagColors[item.tag] || 'rgba(0,0,0,0)';
+        const tc = tagTextColors[item.tag] || 'var(--muted)';
+        body += `<div style="padding:10px 16px;border-top:1px solid rgba(37,37,64,0.5);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px;">
+            <div style="font-size:13px;font-weight:600;color:var(--text);flex:1;">${item.name}</div>
+            <div style="background:${bg};border-radius:6px;padding:2px 7px;font-family:'Space Mono';font-size:8px;color:${tc};white-space:nowrap;flex-shrink:0;">${item.tag}</div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:4px;">${item.why}</div>
+          <div style="font-family:'Space Mono';font-size:9px;color:var(--accent3);">${item.stats}</div>
+        </div>`;
+      });
+    });
+    body += '</div>';
+    card.innerHTML = header + body;
+    container.appendChild(card);
+  });
+}
+
+function renderHomeCooking() {
+  const container = document.getElementById('homeCookingGuide');
+  if (!container || container.innerHTML !== '') return;
+  container.innerHTML = '';
+
+  const sections = [
+    { title:'🍳 BREAKFAST AT HOME', items: HOME_COOKING.breakfast },
+    { title:'🔥 DINNER — GRILL', items: HOME_COOKING.dinner_grill },
+    { title:'🌧️ DINNER — INDOOR (rainy days)', items: HOME_COOKING.dinner_indoor },
+  ];
+
+  sections.forEach(sec => {
+    const secDiv = document.createElement('div');
+    secDiv.innerHTML = `<div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin:16px 0 8px;">${sec.title}</div>`;
+    container.appendChild(secDiv);
+
+    sec.items.forEach(item => {
+      const card = document.createElement('div');
+      card.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;';
+      const tagBg = item.tag.includes('🏆')||item.tag.includes('✅') ? 'rgba(0,255,136,0.1)' :
+                    item.tag.includes('🔥') ? 'rgba(255,150,64,0.15)' :
+                    item.tag.includes('⚡') ? 'rgba(0,212,255,0.1)' :
+                    item.tag.includes('🌧️') ? 'rgba(77,159,255,0.1)' : 'rgba(90,90,136,0.15)';
+      const tagTc = item.tag.includes('🏆')||item.tag.includes('✅') ? 'var(--green)' :
+                    item.tag.includes('🔥') ? 'var(--orange)' :
+                    item.tag.includes('⚡') ? 'var(--accent3)' :
+                    item.tag.includes('🌧️') ? 'var(--accent3)' : 'var(--muted)';
+
+      card.innerHTML = `
+        <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.oa').classList.toggle('rotated')" style="display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;">
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <div style="font-size:14px;font-weight:600;color:var(--text);">${item.name}</div>
+              <div style="background:${tagBg};border-radius:6px;padding:2px 7px;font-family:'Space Mono';font-size:8px;color:${tagTc};white-space:nowrap;">${item.tag}</div>
+            </div>
+            <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);margin-top:3px;">⏱ ${item.time} · ${item.difficulty} · ${item.stats}</div>
+          </div>
+          <div class="oa open-arrow" style="color:var(--muted);font-size:14px;">›</div>
+        </div>
+        <div style="display:none;border-top:1px solid var(--border);padding:12px 14px;">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">${item.why}</div>
+          <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">STEPS</div>
+          ${item.steps.map((s,i)=>`<div style="display:flex;gap:8px;margin-bottom:6px;font-size:12px;"><span style="color:var(--accent);font-family:'Bebas Neue';font-size:16px;line-height:1.2;">${i+1}</span><span style="color:var(--muted);line-height:1.5;">${s}</span></div>`).join('')}
+        </div>`;
+      container.appendChild(card);
+    });
+  });
+}
+
+// ══════════════════════════════════════════
+// FOOD PREFERENCES SYSTEM
+// ══════════════════════════════════════════
+
+const FOOD_OPTIONS = {
+  proteins: [
+    // Your core proteins
+    { id:'chicken', label:'🍗 Chicken',   on:true  },
+    { id:'steak',   label:'🥩 Steak',     on:true  },
+    { id:'beef',    label:'🥩 Beef',      on:true  },
+    { id:'tilapia', label:'🐟 Tilapia',   on:true  },
+    { id:'bacon',   label:'🥓 Bacon',     on:true  },
+    { id:'sausage', label:'🌭 Sausage',   on:true  },
+    { id:'eggs',    label:'🍳 Eggs',      on:true  },
+    // Common additions
+    { id:'turkey',  label:'🦃 Turkey',    on:false },
+    { id:'salmon',  label:'🐟 Salmon',    on:false },
+    { id:'shrimp',  label:'🍤 Shrimp',    on:false },
+    { id:'tuna',    label:'🐟 Tuna',      on:false },
+    { id:'pork',    label:'🥩 Pork Chop', on:false },
+    { id:'ham',     label:'🍖 Ham',       on:false },
+    { id:'yogurt',  label:'🥛 Gr. Yogurt',on:false },
+  ],
+  vegs: [
+    // Your current vegs
+    { id:'broccoli',  label:'🥦 Broccoli',    on:true  },
+    { id:'carrots',   label:'🥕 Carrots',      on:true  },
+    { id:'corn',      label:'🌽 Corn',         on:true  },
+    { id:'arugula',   label:'🥗 Arugula',      on:false },
+    { id:'spinach',   label:'🥬 Spinach',      on:true  },
+    { id:'peppers',   label:'🫑 Peppers',      on:true  },
+    // Common additions
+    { id:'zucchini',  label:'🥒 Zucchini',     on:false },
+    { id:'greenbeans',label:'🫘 Green Beans',  on:false },
+    { id:'peas',      label:'🟢 Peas',         on:false },
+    { id:'sweetpot',  label:'🍠 Sweet Potato', on:false },
+    { id:'onion',     label:'🧅 Onion',        on:false },
+    { id:'tomatoes',  label:'🍅 Tomatoes',     on:false },
+    { id:'cucumber',  label:'🥒 Cucumber',     on:false },
+    { id:'celery',    label:'🥬 Celery',       on:false },
+    { id:'asparagus', label:'🌿 Asparagus',    on:false },
+  ],
+  breakfast: [
+    { id:'bf_hearty', label:'🥓 Hearty (bacon/sausage)', on:true  },
+    { id:'bf_eggs',   label:'🍳 Eggs-based',              on:true  },
+    { id:'bf_wrap',   label:'🌯 Breakfast Wrap',          on:false },
+    { id:'bf_light',  label:'🍌 Light & quick',           on:false },
+    { id:'bf_rice',   label:'🍚 Rice Bowl',               on:false },
+  ],
+  lunch: [
+    { id:'ln_bowl',   label:'🍚 Rice Bowl',     on:true  },
+    { id:'ln_wrap',   label:'🌯 Wrap',          on:true  },
+    { id:'ln_plate',  label:'🍽 Grilled Plate', on:true  },
+    { id:'ln_salad',  label:'🥗 Protein Salad', on:false },
+    { id:'ln_stir',   label:'🥘 Stir-Fry',     on:false },
+  ],
+  dinner: [
+    { id:'dn_plate',  label:'🍽 Grilled & Simple', on:true  },
+    { id:'dn_bowl',   label:'🍚 Rice Bowl',        on:true  },
+    { id:'dn_stir',   label:'🥘 Stir-Fry',        on:true  },
+    { id:'dn_soup',   label:'🍲 Soup / Stew',      on:false },
+    { id:'dn_wrap',   label:'🌯 Wrap',             on:false },
+  ],
+};
+
+function getPrefs() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('forge_prefs') || '{}');
+    const result = { proteins:{}, vegs:{}, breakfast:{}, lunch:{}, dinner:{}, notes:'' };
+    FOOD_OPTIONS.proteins.forEach(p  => result.proteins[p.id]   = p.on);
+    FOOD_OPTIONS.vegs.forEach(v      => result.vegs[v.id]        = v.on);
+    FOOD_OPTIONS.breakfast.forEach(b => result.breakfast[b.id]   = b.on);
+    FOOD_OPTIONS.lunch.forEach(l     => result.lunch[l.id]        = l.on);
+    FOOD_OPTIONS.dinner.forEach(d    => result.dinner[d.id]       = d.on);
+    Object.assign(result.proteins,  saved.proteins  || {});
+    Object.assign(result.vegs,      saved.vegs      || {});
+    Object.assign(result.breakfast, saved.breakfast || {});
+    Object.assign(result.lunch,     saved.lunch     || {});
+    Object.assign(result.dinner,    saved.dinner    || {});
+    result.notes = saved.notes || '';
+    return result;
+  } catch(e) { return {}; }
+}
+
+function savePrefs() {
+  const prefs = { proteins:{}, vegs:{}, breakfast:{}, lunch:{}, dinner:{}, notes: document.getElementById('foodNotes').value };
+  document.querySelectorAll('.pref-toggle').forEach(btn => {
+    const [cat, id] = btn.dataset.key.split('|');
+    if (!prefs[cat]) prefs[cat] = {};
+    prefs[cat][id] = btn.classList.contains('on');
+  });
+  localStorage.setItem('forge_prefs', JSON.stringify(prefs));
+  updateSummaryBar();
+}
+
+function togglePref(btn) {
+  btn.classList.toggle('on');
+  const isOn = btn.classList.contains('on');
+  btn.style.background    = isOn ? 'rgba(232,255,0,0.12)' : 'var(--surface)';
+  btn.style.borderColor   = isOn ? 'rgba(232,255,0,0.4)'  : 'var(--border)';
+  btn.style.color         = isOn ? 'var(--accent)'        : 'var(--muted)';
+  savePrefs();
+}
+
+function togglePrefs() {
+  const panel = document.getElementById('prefsPanel');
+  const open  = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+}
+
+function buildToggleGroup(containerId, category, items, prefs) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  items.forEach(item => {
+    const isOn = prefs[category] ? (prefs[category][item.id] !== false) : item.on;
+    const btn = document.createElement('button');
+    btn.className = 'pref-toggle' + (isOn ? ' on' : '');
+    btn.dataset.key = `${category}|${item.id}`;
+    btn.textContent = item.label;
+    btn.onclick = () => togglePref(btn);
+    btn.style.cssText = `padding:7px 13px;border-radius:20px;border:1px solid ${isOn ? 'rgba(232,255,0,0.4)' : 'var(--border)'};
+      background:${isOn ? 'rgba(232,255,0,0.12)' : 'var(--surface)'};
+      color:${isOn ? 'var(--accent)' : 'var(--muted)'};
+      font-family:'DM Sans';font-size:13px;cursor:pointer;transition:all 0.15s;white-space:nowrap`;
+    container.appendChild(btn);
+  });
+}
+
+function buildPrefsUI() {
+  const prefs = getPrefs();
+  buildToggleGroup('proteinToggles',   'proteins',  FOOD_OPTIONS.proteins,  prefs);
+  buildToggleGroup('vegToggles',       'vegs',      FOOD_OPTIONS.vegs,      prefs);
+  buildToggleGroup('breakfastToggles', 'breakfast', FOOD_OPTIONS.breakfast, prefs);
+  buildToggleGroup('lunchToggles',     'lunch',     FOOD_OPTIONS.lunch,     prefs);
+  buildToggleGroup('dinnerToggles',    'dinner',    FOOD_OPTIONS.dinner,    prefs);
+  const notesEl = document.getElementById('foodNotes');
+  if (notesEl) notesEl.value = prefs.notes || '';
+  updateSummaryBar();
+}
+
+function updateSummaryBar() {
+  const prefs = getPrefs();
+  const onProteins = FOOD_OPTIONS.proteins.filter(p => prefs.proteins[p.id] !== false).map(p => p.label);
+  const onVegs     = FOOD_OPTIONS.vegs.filter(v => prefs.vegs[v.id] !== false).map(v => v.label);
+  const bar = document.getElementById('mealSummaryBar');
+  if (bar) {
+    bar.innerHTML = `<span style="color:var(--text);font-weight:600">Your plan uses: </span>${onProteins.concat(onVegs).join(' · ')}
+      ${prefs.notes ? `<br><span style="color:var(--muted);font-style:italic">Notes: ${prefs.notes}</span>` : ''}
+      <br><span style="color:var(--muted)">~2,080 kcal/day target · 167 lbs / 5'7" / age 49</span>`;
+  }
+}
+
+// ══════════════════════════════════════
+// DYNAMIC MEAL PLAN (preference-driven)
+// ══════════════════════════════════════
+function buildMeals() {
+  const prefs = getPrefs();
+  const P = prefs.proteins || {};
+  const V = prefs.vegs     || {};
+  const B = prefs.breakfast|| {};
+  const L = prefs.lunch    || {};
+  const D = prefs.dinner   || {};
+
+  // ── Proteins ──
+  const hasBacon   = P.bacon   !== false;
+  const hasSausage = P.sausage !== false;
+  const hasChicken = P.chicken !== false;
+  const hasBeef    = P.beef    !== false;
+  const hasSteak   = P.steak   !== false;
+  const hasTilapia = P.tilapia !== false;
+  const hasEggs    = P.eggs    !== false;
+  const hasTurkey  = P.turkey  === true;
+  const hasSalmon  = P.salmon  === true;
+  const hasShrimp  = P.shrimp  === true;
+  const hasTuna    = P.tuna    === true;
+  const hasPork    = P.pork    === true;
+  const hasHam     = P.ham     === true;
+  const hasYogurt  = P.yogurt  === true;
+
+  // ── Veggies ──
+  const hasBroc    = V.broccoli  !== false;
+  const hasCarrot  = V.carrots   !== false;
+  const hasCorn    = V.corn      !== false;
+  const hasArug    = V.arugula   === true;
+  const hasSpin    = V.spinach   !== false;
+  const hasPepp    = V.peppers   !== false;
+  const hasZuke    = V.zucchini  === true;
+  const hasGBeans  = V.greenbeans=== true;
+  const hasPeas    = V.peas      === true;
+  const hasSweetP  = V.sweetpot  === true;
+  const hasOnion   = V.onion     === true;
+  const hasTomato  = V.tomatoes  === true;
+  const hasCuke    = V.cucumber  === true;
+  const hasCelery  = V.celery    === true;
+  const hasAspara  = V.asparagus === true;
+
+  // ── Style flags ──
+  const hearty     = B.bf_hearty !== false;
+  const lnBowl    = L.ln_bowl  !== false;
+  const lnWrap    = L.ln_wrap  !== false;
+  const lnPlate   = L.ln_plate !== false;
+  const lnSalad   = L.ln_salad === true;
+  const lnStir    = L.ln_stir  === true;
+  const dnPlate   = D.dn_plate !== false;
+  const dnBowl    = D.dn_bowl  !== false;
+  const dnStir    = D.dn_stir  !== false;
+  const dnSoup    = D.dn_soup  === true;
+  const dnWrap    = D.dn_wrap  === true;
+
+  // ── Helper: pick best available protein ──
+  function bestProtein(preferred) {
+    const map = { chicken:hasChicken, steak:hasSteak, beef:hasBeef, tilapia:hasTilapia,
+                  turkey:hasTurkey, salmon:hasSalmon, shrimp:hasShrimp, tuna:hasTuna,
+                  pork:hasPork, ham:hasHam };
+    for (const p of preferred) if (map[p]) return p;
+    return 'protein of choice';
+  }
+  function bestVeg(preferred) {
+    const map = { broccoli:hasBroc, carrots:hasCarrot, corn:hasCorn, spinach:hasSpin,
+                  peppers:hasPepp, zucchini:hasZuke, greenbeans:hasGBeans, peas:hasPeas,
+                  sweetpotato:hasSweetP, asparagus:hasAspara, tomatoes:hasTomato };
+    for (const v of preferred) if (map[v]) return v;
+    return 'mixed veg';
+  }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  // ── Lunch builder ──
+  function lunch(prot, veg, day) {
+    const p = bestProtein(prot);
+    const v = bestVeg(veg);
+    const pLabel = { chicken:'chicken breast', steak:'sirloin steak', beef:'lean ground beef',
+                     tilapia:'tilapia', turkey:'turkey breast', salmon:'salmon fillet',
+                     shrimp:'shrimp', tuna:'canned tuna', pork:'pork chop', ham:'ham' }[p] || p;
+    const extras = [hasOnion&&'onion', hasPepp&&'peppers', hasTomato&&'tomatoes'].filter(Boolean).join(', ');
+
+    if (lnWrap && !lnBowl)
+      return { name:`${cap(p)} Wrap`, desc:`5oz ${pLabel} in a large flour tortilla with ${v}${extras ? ', ' + extras : ''}. Add a squeeze of lime. Great for eating on the go.`, p:'44g protein', c:'38g carbs', f:'10g fat' };
+    if (lnStir)
+      return { name:`${cap(p)} & ${cap(v)} Stir-Fry`, desc:`6oz ${pLabel} stir-fried with ${v}${extras ? ', ' + extras : ''}. Splash of soy sauce and garlic. Over ¾ cup rice. One pan, 15 minutes.`, p:'50g protein', c:'52g carbs', f:'10g fat' };
+    if (lnSalad)
+      return { name:`${cap(p)} Protein Salad`, desc:`5oz ${pLabel} over a bed of ${hasSpin ? 'spinach' : 'mixed greens'} with ${v}${hasCuke ? ', cucumber' : ''}${hasTomato ? ', tomatoes' : ''}. Light olive oil dressing.`, p:'42g protein', c:'12g carbs', f:'12g fat' };
+    // Default: bowl or plate
+    return { name:`${cap(p)} + ${cap(v)} + Rice`, desc:`6oz grilled ${pLabel}. 1 cup ${v}. ¾ cup white rice. ${extras ? 'Toss in some ' + extras + ' for extra flavor.' : 'Classic muscle-building plate — simple and effective.'}`, p:'52g protein', c:'52g carbs', f:'8g fat' };
+  }
+
+  // ── Dinner builder ──
+  function dinner(prot, veg, day) {
+    const p = bestProtein(prot);
+    const v = bestVeg(veg);
+    const pLabel = { chicken:'chicken breast', steak:'sirloin steak', beef:'lean ground beef',
+                     tilapia:'tilapia', turkey:'turkey breast', salmon:'salmon fillet',
+                     shrimp:'shrimp', tuna:'tuna steak', pork:'pork chop', ham:'ham' }[p] || p;
+    const extras = [hasOnion&&'onion', hasPepp&&'peppers', hasZuke&&'zucchini', hasAspara&&'asparagus'].filter(Boolean).join(', ');
+
+    if (dnSoup)
+      return { name:`${cap(p)} & ${cap(v)} Soup`, desc:`5oz ${pLabel} simmered with ${v}${extras ? ', ' + extras : ''}${hasOnion ? ', onion' : ''} in chicken broth. Season with garlic and herbs. Hearty, low-cal, high protein.`, p:'44g protein', c:'22g carbs', f:'10g fat' };
+    if (dnStir && !dnPlate)
+      return { name:`${cap(p)} Stir-Fry with ${cap(v)}`, desc:`5oz ${pLabel} stir-fried with ${v}${extras ? ' and ' + extras : ''}. Splash of soy sauce, garlic, and ginger. Over ¾ cup rice. One of the fastest dinners you can make.`, p:'46g protein', c:'52g carbs', f:'12g fat' };
+    if (dnWrap)
+      return { name:`${cap(p)} Dinner Wrap`, desc:`5oz ${pLabel} in a tortilla with ${v}${hasTomato ? ', tomatoes' : ''}${hasPepp ? ', peppers' : ''}. Great when you want something easy after a workout.`, p:'44g protein', c:'36g carbs', f:'10g fat' };
+    // Default: grilled plate or bowl
+    return { name:`${cap(p)} + ${cap(v)} + Rice`, desc:`5oz ${p === 'steak' ? 'sirloin grilled or pan-seared' : p === 'salmon' ? 'salmon baked at 400°F 15 min' : 'grilled ' + pLabel}. 1 cup ${v}${hasSweetP ? ' or roasted sweet potato' : ''}. ½ cup rice. ${p === 'steak' ? 'Steak on recovery day feeds muscle repair.' : 'Clean, complete, easy.'}`, p:'46g protein', c:'42g carbs', f:'14g fat' };
+  }
+
+  // Breakfast options — pick based on prefs
+  function breakfast(day) {
+    if (day === 'Monday') {
+      if (hearty && hasBacon && hasEggs)
+        return { name:'Bacon, Eggs & Toast', desc:'3 scrambled or fried eggs with 3 strips of bacon. 1 slice whole wheat toast. High-protein, satisfying start — the classic that works.', p:'32g protein', c:'18g carbs', f:'22g fat' };
+      if (hearty && hasSausage && hasEggs)
+        return { name:'Sausage & Egg Scramble', desc:'2 pork sausage links (or patties) with 3 scrambled eggs. Add diced peppers if you have them. Fast, filling, and packed with morning protein.', p:'34g protein', c:'4g carbs', f:'26g fat' };
+      if (hasChicken && hasEggs)
+        return { name:'Scrambled Eggs + Chicken Bowl', desc:'3 scrambled eggs with 4oz diced chicken breast. Add broccoli or carrots on the side.', p:'42g protein', c:'8g carbs', f:'14g fat' };
+      return { name:'Eggs Any Style', desc:'3 eggs cooked however you like. Season well. Simple and effective.', p:'18g protein', c:'1g carbs', f:'15g fat' };
+    }
+    if (day === 'Tuesday') {
+      if (hearty && hasBacon && hasEggs)
+        return { name:'Bacon & Egg Scramble with Peppers', desc:`3 eggs scrambled with 3 strips of bacon${hasPepp ? ' and diced bell peppers' : ''}. One of the best pre-workout breakfasts — fast digesting protein and good fats.`, p:'34g protein', c:'6g carbs', f:'24g fat' };
+      if (hearty && hasSausage)
+        return { name:'Sausage & Egg Wrap', desc:'2 sausage patties with 2 eggs in a large flour tortilla. Meal-prep friendly — make a few at once.', p:'36g protein', c:'28g carbs', f:'24g fat' };
+      if (hasChicken)
+        return { name:'Chicken & Rice Morning Bowl', desc:'4oz chicken breast with ½ cup rice. Works great as leftover from the night before.', p:'38g protein', c:'38g carbs', f:'6g fat' };
+      return { name:'3-Egg Omelette', desc:'3 eggs with any veg you like. Season generously.', p:'18g protein', c:'3g carbs', f:'15g fat' };
+    }
+    if (day === 'Wednesday') {
+      if (hearty && (hasBacon || hasSausage) && hasEggs) {
+        const meat = hasBacon ? 'bacon' : 'sausage';
+        return { name:`Eggs & ${hasBacon ? 'Bacon' : 'Sausage'} — Easy Recovery Morning`, desc:`3 eggs with ${meat}. Recovery day means lower carbs are fine — protein and fat keep you full without spiking insulin. Great combo with your bike ride or walk.`, p:'32g protein', c:'2g carbs', f:'22g fat' };
+      }
+      if (hasEggs)
+        return { name:'Eggs & Toast', desc:`3 eggs any style with 1 slice whole wheat toast${hasArug ? ' and arugula on the side' : hasSpin ? ' and a handful of spinach' : ''}.`, p:'22g protein', c:'18g carbs', f:'12g fat' };
+      return { name:'Quick Egg Bowl', desc:'3 eggs with whatever veg you have. Recovery day — keep it simple.', p:'18g protein', c:'4g carbs', f:'15g fat' };
+    }
+    if (day === 'Thursday') {
+      if (hearty && hasBacon && hasEggs)
+        return { name:'Bacon, Egg & Cheese Scramble', desc:`3 eggs scrambled with 4 strips of bacon${hasPepp ? ' and diced peppers' : ''}. Optional: melt a slice of cheese on top. High protein, zero rice needed — simple and satisfying.`, p:'38g protein', c:'4g carbs', f:'28g fat' };
+      if (hasSausage && hasEggs)
+        return { name:'Sausage Egg Skillet', desc:'2 sausage links sliced and cooked with 3 eggs and any veg. One pan, easy cleanup.', p:'36g protein', c:'5g carbs', f:'26g fat' };
+      if (hasChicken)
+        return { name:'Chicken Rice Bowl + Corn', desc:`5oz chicken breast with ¾ cup rice${hasCorn ? ' and corn' : ''}.`, p:'46g protein', c:'55g carbs', f:'6g fat' };
+      return { name:'Eggs & Veg Scramble', desc:'3 eggs with whatever veg you have on hand.', p:'18g protein', c:'5g carbs', f:'15g fat' };
+    }
+    if (day === 'Friday') {
+      if (hearty && hasBacon && hasEggs)
+        return { name:'Power Breakfast: Bacon, Eggs & Rice', desc:`3 eggs + 4 strips of bacon + ½ cup rice. Eat 1–1.5 hours before your workout. The carbs from rice fuel the session, protein from eggs and bacon feeds the muscles.`, p:'48g protein', c:'38g carbs', f:'26g fat' };
+      if (hasSausage && hasEggs)
+        return { name:'Sausage & Egg Power Bowl', desc:'2 sausage patties + 3 eggs + ½ cup rice. Pre-workout fuel — biggest meal of the morning.', p:'46g protein', c:'38g carbs', f:'24g fat' };
+      if (hasChicken && hasEggs)
+        return { name:'Chicken & Egg Power Bowl', desc:'3 eggs + 4oz chicken + ¾ cup rice. Classic pre-workout fuel.', p:'56g protein', c:'52g carbs', f:'14g fat' };
+      return { name:'Big Egg Scramble', desc:'4 eggs any style. Big workout day — do not skip breakfast.', p:'24g protein', c:'2g carbs', f:'20g fat' };
+    }
+  }
+
+  // Build veggie string helper
+  function veg2(a, b) {
+    if (hasBroc && a==='broccoli') return 'broccoli';
+    if (hasCarrot && a==='carrots') return 'carrots';
+    if (hasCorn && a==='corn') return 'corn';
+    if (hasSpin && a==='spinach') return 'spinach';
+    const fallbacks = [hasBroc&&'broccoli',hasCarrot&&'carrots',hasCorn&&'corn',hasSpin&&'spinach',hasPepp&&'peppers'].filter(Boolean);
+    return fallbacks[0] || 'mixed veg';
+  }
+  // snack helper
+  function snack(prot, veg) {
+    const p = bestProtein(prot);
+    const v = bestVeg(veg);
+    if (hasYogurt && p !== 'yogurt')
+      return { name:`${cap(p)} & Greek Yogurt`, desc:`3oz ${p} + 1 cup plain Greek yogurt. ~30g protein snack, keeps you full for hours.`, p:'30g protein', c:'10g carbs', f:'6g fat' };
+    return { name:`${cap(p)} & ${cap(v)}`, desc:`3oz cold ${p} with ${v === 'sweetpotato' ? 'roasted sweet potato' : v}. Easy prep, keeps you fueled between meals.`, p:'26g protein', c:'10g carbs', f:'5g fat' };
+  }
+
+  return [
+    {
+      day:'Monday', kcal:'~2,100 kcal',
+      meals:[
+        { time:'BREAKFAST', ...breakfast('Monday') },
+        { time:'LUNCH',     ...lunch(['chicken','turkey','tilapia','tuna'], ['broccoli','spinach','greenbeans','zucchini'], 'Monday') },
+        { time:'SNACK',     ...snack(['chicken','turkey','ham','tuna'], ['carrots','cucumber','celery','corn']) },
+        { time:'DINNER',    ...dinner(['beef','steak','pork','chicken'], ['broccoli','peppers','zucchini','spinach'], 'Monday') },
+      ]
+    },
+    {
+      day:'Tuesday', kcal:'~2,050 kcal',
+      meals:[
+        { time:'BREAKFAST', ...breakfast('Tuesday') },
+        { time:'LUNCH',     ...lunch(['tilapia','salmon','tuna','chicken'], ['carrots','greenbeans','asparagus','broccoli'], 'Tuesday') },
+        { time:'SNACK',     ...snack(['chicken','beef','ham'], ['carrots','celery','cucumber','corn']) },
+        { time:'DINNER',    ...dinner(['chicken','turkey','pork'], ['broccoli','corn','peas','spinach'], 'Tuesday') },
+      ]
+    },
+    {
+      day:'Wednesday', kcal:'~1,900 kcal — Active Recovery',
+      meals:[
+        { time:'BREAKFAST', ...breakfast('Wednesday') },
+        { time:'LUNCH',     ...lunch(['chicken','turkey','shrimp','tuna'], ['spinach','carrots','zucchini','broccoli'], 'Wednesday') },
+        { time:'SNACK',     ...{ name: hasCarrot ? 'Carrots & Rice' : 'Veg & Rice', desc: `${hasCarrot?'Baby carrots':'Veg of choice'} + ½ cup cold rice. Eat before your bike ride, walk, or skate session.`, p:'4g protein', c:'30g carbs', f:'1g fat' } },
+        { time:'DINNER',    ...dinner(['steak','beef','salmon','pork'], ['broccoli','asparagus','greenbeans','spinach'], 'Wednesday') },
+      ]
+    },
+    {
+      day:'Thursday', kcal:'~2,100 kcal',
+      meals:[
+        { time:'BREAKFAST', ...breakfast('Thursday') },
+        { time:'LUNCH',     ...lunch(['tilapia','salmon','chicken','shrimp'], ['carrots','peppers','zucchini','broccoli'], 'Thursday') },
+        { time:'SNACK',     ...snack(['beef','chicken','turkey','ham'], ['carrots','celery','peas','corn']) },
+        { time:'DINNER',    ...dinner(['chicken','turkey','steak','pork'], ['broccoli','sweetpot','greenbeans','spinach'], 'Thursday') },
+      ]
+    },
+    {
+      day:'Friday', kcal:'~2,200 kcal — Big workout day',
+      meals:[
+        { time:'BREAKFAST', ...breakfast('Friday') },
+        { time:'LUNCH',     ...lunch(['steak','beef','chicken','salmon'], ['broccoli','corn','peppers','spinach'], 'Friday') },
+        { time:'SNACK',     ...snack(['chicken','turkey','tuna'], ['carrots','cucumber','celery','corn']) },
+        { time:'DINNER',    ...dinner(['tilapia','salmon','chicken','shrimp'], ['broccoli','asparagus','greenbeans','zucchini'], 'Friday') },
+      ]
+    },
+  ];
+}
+
+
+// ══════════════════════════════════════
+// STATE & STORAGE
+// ══════════════════════════════════════
+function getState() {
+  try { return JSON.parse(localStorage.getItem('forge_state') || '{}'); } catch(e) { return {}; }
+}
+function setState(patch) {
+  const s = getState();
+  Object.assign(s, patch);
+  localStorage.setItem('forge_state', JSON.stringify(s));
+}
+function getChecked() {
+  const s = getState();
+  return s.checked || {};
+}
+function toggleCheck(dayKey, exId) {
+  const s = getState();
+  if (!s.checked) s.checked = {};
+  if (!s.checked[dayKey]) s.checked[dayKey] = {};
+  s.checked[dayKey][exId] = !s.checked[dayKey][exId];
+  localStorage.setItem('forge_state', JSON.stringify(s));
+  updateProgress();
+}
+
+// ══════════════════════════════════════
+// RENDER TODAY
+// ══════════════════════════════════════
+const todayDow = new Date().getDay(); // 0=Sun
+const todayName = DAYS[todayDow];
+const planDay = WEEK_PLAN.find(p => p.day === todayName) || WEEK_PLAN[6];
+const todayKey = todayName;
+
+function renderToday() {
+  document.getElementById('todayLabel').textContent = todayName.toUpperCase() + ' · ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  document.getElementById('todayTitle').textContent = planDay.focus;
+  document.getElementById('todaySub').textContent = planDay.exercises.length ? `Back-safe · ${getProgramWeek().week > 0 ? 'Week ' + getProgramWeek().week : 'Starts Monday June 8'}` : 'Today is your rest day — you earned it.';
+  document.getElementById('todayTitle').style.color = planDay.color;
+
+  const meta = document.getElementById('todayMeta');
+  meta.innerHTML = '';
+  if (planDay.duration !== 'Rest') {
+    meta.innerHTML = `<div class="day-meta-item"><span>${planDay.duration}</span></div>
+      <div class="day-meta-item"><span>${planDay.exercises.length}</span> exercises</div>`;
+  }
+
+  const container = document.getElementById('todayExercises');
+  container.innerHTML = '';
+
+  if (planDay.exercises.length === 0) {
+    container.innerHTML = `<div class="rest-card"><div class="rest-icon">😴</div><div class="rest-title">REST DAY</div><div class="rest-sub">Recover. Muscles grow while you rest.<br>Light stretching is fine.</div></div>`;
+    return;
+  }
+
+  const checked = getChecked();
+
+  planDay.exercises.forEach(exId => {
+    const ex = EXERCISES[exId];
+    if (!ex) return;
+    const isDone = !!(checked[todayKey] && checked[todayKey][exId]);
+    const card = document.createElement('div');
+    card.className = `ex-card ${isDone ? 'done' : ''}`;
+    card.id = `excard-${exId}`;
+
+    card.innerHTML = `
+      <div class="ex-header" onclick="toggleExpand('${exId}')">
+        <div class="ex-check" onclick="event.stopPropagation();checkExercise('${exId}')">
+          ${isDone ? '✓' : ''}
+        </div>
+        <div class="ex-info">
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-sets">${ex.sets}</div>
+        </div>
+        <div class="ex-badge ${ex.badge}">${ex.badgeText}</div>
+        <div class="open-arrow" id="arrow-${exId}">›</div>
+      </div>
+      <div class="ex-expand" id="expand-${exId}">
+        <div class="ex-diagram">${getSVG(ex.svgKey, ex.svgColor)}</div>
+        <p class="ex-desc">${ex.desc}</p>
+        <ul class="ex-tips">
+          ${ex.tips.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+          <span style="font-family:'Space Mono';font-size:9px;color:var(--muted)">REST: ${ex.rest}</span>
+        </div>
+        <a class="yt-link" href="${ex.yt}" target="_blank">▶ Watch on YouTube</a>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function toggleExpand(exId) {
+  const exp = document.getElementById(`expand-${exId}`);
+  const arr = document.getElementById(`arrow-${exId}`);
+  exp.classList.toggle('open');
+  arr.classList.toggle('rotated');
+}
+
+function checkExercise(exId) {
+  toggleCheck(todayKey, exId);
+  const card = document.getElementById(`excard-${exId}`);
+  const isDone = !!(getChecked()[todayKey] && getChecked()[todayKey][exId]);
+  card.classList.toggle('done', isDone);
+  card.querySelector('.ex-check').textContent = isDone ? '✓' : '';
+  updateProgress();
+}
+
+// ══════════════════════════════════════
+// RENDER SCHEDULE
+// ══════════════════════════════════════
+function renderSchedule() {
+  const container = document.getElementById('weekGrid');
+  container.innerHTML = '';
+  const programMonday = new Date(2026, 5, 8); // Jun 8 2026
+  const programSunday = new Date(2026, 5, 14); // Jun 14 2026
+  const nowEST = new Date(new Date().toLocaleString('en-US', {timeZone:'America/New_York'}));
+  const inProgramWeek = nowEST >= programMonday && nowEST <= programSunday;
+
+  WEEK_PLAN.forEach((p, i) => {
+    const isToday = inProgramWeek && p.day === todayName;
+    const isRest = p.exercises.length === 0;
+    const div = document.createElement('div');
+    div.className = `week-day-card ${isToday ? 'today-card' : ''}`;
+    div.style.overflow = 'hidden';
+    const dayOffset = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].indexOf(p.day);
+    const dayDate = new Date(programMonday);
+    dayDate.setDate(programMonday.getDate() + dayOffset);
+    const dateStr = dayDate.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+
+    // Build exercise preview list
+    let exPreview = '';
+    if (!isRest) {
+      exPreview = p.exercises.map(exId => {
+        const ex = EXERCISES[exId];
+        if (!ex) return '';
+        return `<div id="planex-${p.day}-${exId}" style="border-top:1px solid var(--border);">
+          <div onclick="planToggleEx('${p.day}','${exId}')" style="display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;">
+            <span class="ex-badge ${ex.badge}" style="font-size:8px;">${ex.badgeText}</span>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;color:var(--text);">${ex.name}</div>
+              <div style="font-family:'Space Mono';font-size:10px;color:var(--muted);margin-top:1px;">${ex.sets}</div>
+            </div>
+            <div class="open-arrow" id="planarr-${p.day}-${exId}" style="color:var(--muted);font-size:13px;">›</div>
+          </div>
+          <div id="planexexp-${p.day}-${exId}" style="display:none;padding:0 14px 12px;border-top:1px solid rgba(37,37,64,0.4);">
+            <div style="width:100%;height:120px;background:var(--surface);border-radius:10px;margin-bottom:10px;overflow:hidden;">${getSVG(ex.svgKey, ex.svgColor)}</div>
+            <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:8px;">${ex.desc}</p>
+            <ul style="font-size:11px;margin-left:14px;">
+              ${ex.tips.map(t=>`<li style="color:var(--muted);margin-bottom:3px;">${t}</li>`).join('')}
+            </ul>
+            <div style="margin-top:8px;font-family:'Space Mono';font-size:9px;color:var(--muted);">REST: ${ex.rest}</div>
+            <a href="${ex.yt}" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.2);color:#ff4444;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;text-decoration:none;margin-top:8px;">▶ Watch on YouTube</a>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    div.innerHTML = `
+      <div onclick="planToggleDay('${p.day}')" style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;">
+        <div class="wday-num">${dayDate.getDate()}</div>
+        <div class="wday-info">
+          <div class="wday-name">${p.day} <span style="font-family:'Space Mono';font-size:9px;color:var(--muted)">${dateStr}</span> ${isToday ? '<span style="font-size:10px;color:var(--accent)">· TODAY</span>' : ''}</div>
+          <div class="wday-focus" style="color:${p.color}">${p.icon} ${p.focus}</div>
+          <div class="wday-badges">
+            <span style="font-family:Space Mono;font-size:9px;color:var(--muted)">${p.duration} · ${p.exercises.length || '—'} ${p.exercises.length === 1 ? 'exercise' : 'exercises'}</span>
+          </div>
+        </div>
+        <div class="open-arrow" id="planarr-${p.day}" style="color:var(--muted);font-size:16px;">${isRest ? '💤' : '›'}</div>
+      </div>
+      <div id="planday-${p.day}" style="display:none;">
+        ${isRest
+          ? `<div style="padding:14px 16px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--border);">😴 Rest day — muscles grow while you recover</div>`
+          : exPreview}
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+function planToggleDay(day) {
+  const panel = document.getElementById('planday-' + day);
+  const arr   = document.getElementById('planarr-' + day);
+  if (!panel) return;
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  if (arr && !arr.textContent.includes('💤')) arr.classList.toggle('rotated', !open);
+}
+
+function planToggleEx(day, exId) {
+  const panel = document.getElementById(`planexexp-${day}-${exId}`);
+  const arr   = document.getElementById(`planarr-${day}-${exId}`);
+  if (!panel) return;
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  if (arr) arr.classList.toggle('rotated', !open);
+}
+
+// ══════════════════════════════════════
+// RENDER MEALS
+// ══════════════════════════════════════
+function renderMeals() {
+  const container = document.getElementById('mealsContainer');
+  container.innerHTML = '';
+  const meals = buildMeals();
+  const { week } = getProgramWeek();
+  const programStarted = week > 0;
+  // Day names to dates for program week
+  const progMonday = new Date(2026, 5, 8);
+  const mealDayOrder = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+  const mealDates = {};
+  mealDayOrder.forEach((day, i) => {
+    const d = new Date(progMonday);
+    d.setDate(progMonday.getDate() + i);
+    mealDates[day] = d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  });
+
+  meals.forEach((d, i) => {
+    const div = document.createElement('div');
+    div.className = 'meal-day-card';
+    // Open today's day if program started, otherwise all closed
+    const isToday = programStarted && d.day === todayName;
+    const isOpen = isToday;
+    const dateLabel = mealDates[d.day] ? ' · ' + mealDates[d.day] : '';
+    div.innerHTML = `
+      <div class="meal-day-header" onclick="toggleMealDay(this)">
+        <div class="meal-day-title">${d.day}<span style="font-family:'DM Sans';font-size:12px;color:var(--muted);font-weight:400;letter-spacing:0">${dateLabel}</span></div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <div class="meal-day-kcal">${d.kcal}</div>
+          <div class="open-arrow ${isOpen ? 'rotated' : ''}">›</div>
+        </div>
+      </div>
+      <div class="meal-list" style="${isOpen ? '' : 'display:none'}">
+        ${d.meals.map(m => `
+          <div class="meal-item">
+            <div class="meal-time">${m.time}</div>
+            <div class="meal-name">${m.name}</div>
+            <div class="meal-desc">${m.desc}</div>
+            <div class="meal-macros">
+              <span class="macro macro-p">~${m.p}</span>
+              <span class="macro macro-c">${m.c}</span>
+              <span class="macro macro-f">${m.f}</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+  updateSummaryBar();
+}
+
+function toggleMealDay(header) {
+  const list = header.nextElementSibling;
+  const arr = header.querySelector('.open-arrow');
+  const isOpen = list.style.display !== 'none';
+  list.style.display = isOpen ? 'none' : 'block';
+  arr.classList.toggle('rotated', !isOpen);
+}
+
+// ══════════════════════════════════════
+// RENDER PROGRESS
+// ══════════════════════════════════════
+function renderStreak() {
+  const container = document.getElementById('streakRow');
+  container.innerHTML = '';
+  const dowIdx = todayDow; // current day index
+
+  WEEK_PLAN.forEach((p, i) => {
+    const dayI = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].indexOf(p.day);
+    const checked = getChecked();
+    const dayDone = checked[p.day] && Object.values(checked[p.day]).some(v=>v);
+    const isToday = p.day === todayName;
+    const div = document.createElement('div');
+    div.className = `streak-day ${dayDone ? 'done' : ''} ${isToday ? 'today' : ''}`;
+    div.innerHTML = `<div class="streak-dot"></div><div>${SHORT[dayI]}</div>`;
+    container.appendChild(div);
+  });
+}
+
+function updateProgress() {
+  const { week } = getProgramWeek();
+  const offset = typeof progressWeekOffset !== 'undefined' ? progressWeekOffset : 0;
+  const viewWeek = Math.max(1, week + offset);
+
+  // Update week label
+  const weekLabel = document.getElementById('progressWeekLabel');
+  const streakTitle = document.getElementById('progressStreakTitle');
+  if (offset === 0) {
+    if (weekLabel) weekLabel.textContent = 'THIS WEEK';
+    if (streakTitle) streakTitle.textContent = 'THIS WEEK';
+  } else {
+    const weeksAgo = Math.abs(offset);
+    const label = weeksAgo === 1 ? 'LAST WEEK' : `${weeksAgo} WEEKS AGO`;
+    if (weekLabel) weekLabel.textContent = label;
+    if (streakTitle) streakTitle.textContent = label;
+  }
+
+  // Get the week key prefix for storage (week number)
+  const weekKey = `week${viewWeek}_`;
+  const checked = getChecked();
+
+  renderStreak();
+  let totalEx = 0, daysWithActivity = 0;
+  WEEK_PLAN.forEach(p => {
+    // Check both current week storage and week-prefixed storage
+    const dayChecked = checked[weekKey + p.day] || checked[p.day] || {};
+    const count = Object.values(dayChecked).filter(v=>v).length;
+    totalEx += count;
+    if (count > 0) daysWithActivity++;
+  });
+  const pct = Math.round((daysWithActivity / 5) * 100);
+  const circum = 239;
+  document.getElementById('progressRing').setAttribute('stroke-dashoffset', circum - (circum * pct / 100));
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('wktDone').innerHTML = `${daysWithActivity} <span>/ 5 this week</span>`;
+  document.getElementById('exDone').innerHTML = `${totalEx} <span>total</span>`;
+
+  // Streak — always current
+  let streak = 0;
+  const order = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const todayIdx = order.indexOf(todayName);
+  for (let i = todayIdx; i >= 0; i--) {
+    const d = order[i];
+    const plan = WEEK_PLAN.find(p=>p.day===d);
+    if (!plan || plan.exercises.length === 0) { streak++; continue; }
+    if (checked[d] && Object.values(checked[d]).some(v=>v)) streak++;
+    else break;
+  }
+  document.getElementById('streakCount').innerHTML = `${streak} <span>days</span>`;
+  updateCardioStats();
+  updateMetricTrends();
+}
+
+// ══════════════════════════════════════
+// WEIGHT CHART
+// ══════════════════════════════════════
+function updateWeightChart() {
+  drawWeightChart();
+}
+
+function drawWeightChart() {
+  const canvas = document.getElementById('weightChart');
+  if (!canvas) return;
+  const s = getState();
+  const logs = (s.metricLogs && s.metricLogs.weight) ? s.metricLogs.weight : (s.weightLogs || []);
+  const W = canvas.parentElement.clientWidth - 32;
+  canvas.width = W * window.devicePixelRatio;
+  canvas.height = 100 * window.devicePixelRatio;
+  canvas.style.width = W + 'px';
+  canvas.style.height = '100px';
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  if (logs.length < 2) {
+    ctx.fillStyle = '#5a5a88';
+    ctx.font = `${11 * window.devicePixelRatio}px "Space Mono"`;
+    ctx.textAlign = 'center';
+    ctx.fillText('Log weight above to see your trend', canvas.width/2, canvas.height/2);
+    return;
+  }
+
+  const vals = logs.map(l=>l.val);
+  const min = Math.min(...vals) - 2, max = Math.max(...vals) + 2;
+  const W2 = canvas.width, H2 = canvas.height;
+  const pad = 20 * window.devicePixelRatio;
+
+  const pts = logs.map((l,i) => ({
+    x: pad + (i/(logs.length-1))*(W2-pad*2),
+    y: H2-pad - ((l.val-min)/(max-min))*(H2-pad*2)
+  }));
+
+  // area
+  ctx.fillStyle = 'rgba(232,255,0,0.06)';
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, H2);
+  pts.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.lineTo(pts[pts.length-1].x, H2);
+  ctx.closePath();
+  ctx.fill();
+
+  // line
+  ctx.strokeStyle = '#e8ff00';
+  ctx.lineWidth = 2 * window.devicePixelRatio;
+  ctx.beginPath();
+  pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
+  ctx.stroke();
+
+  // dots
+  pts.forEach(p => {
+    ctx.fillStyle = '#e8ff00';
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,3*window.devicePixelRatio,0,Math.PI*2);
+    ctx.fill();
+  });
+}
+
+// ══════════════════════════════════════
+// USER PROFILE (your stats)
+// ══════════════════════════════════════
+const USER = {
+  weightLbs: 167,
+  heightIn: 67,        // 5'7"
+  weightKg: 167 * 0.453592,  // 75.75 kg
+  age: 49,
+  programStart: new Date('2026-06-08'),
+};
+// Max HR (Tanaka formula, better for 40+): 208 - (0.7 × age)
+USER.maxHR   = Math.round(208 - 0.7 * USER.age);  // 174 bpm
+USER.zone2Lo = Math.round(USER.maxHR * 0.60);      // fat-burn floor  ~104
+USER.zone2Hi = Math.round(USER.maxHR * 0.70);      // fat-burn ceiling ~122
+USER.zone3Hi = Math.round(USER.maxHR * 0.80);      // aerobic ceiling  ~139
+// BMI
+USER.bmi = ((USER.weightLbs / (USER.heightIn * USER.heightIn)) * 703).toFixed(1);
+// Mifflin-St Jeor BMR (male): 10*kg + 6.25*cm - 5*age + 5
+USER.heightCm = USER.heightIn * 2.54;
+USER.bmr = Math.round(10 * USER.weightKg + 6.25 * USER.heightCm - 5 * USER.age + 5);
+USER.tdee = Math.round(USER.bmr * 1.375);
+USER.targetKcal = USER.tdee - 250;
+
+function getProgramWeek() {
+  const now = new Date();
+  const diffDays = Math.floor((now - USER.programStart) / (1000 * 60 * 60 * 24));
+  if (diffDays < 0) return { week: 0, phase: 'STARTS MON' };
+  const week = Math.floor(diffDays / 7) + 1;
+  const phases = ['BACK SAFE', 'BUILDING', 'STRENGTH', 'POWER', 'PEAK'];
+  return { week, phase: phases[Math.min(week - 1, phases.length - 1)] };
+}
+
+// ══════════════════════════════════════
+// METRICS — LOCK/UNLOCK + HISTORICAL LOGGING
+// ══════════════════════════════════════
+let metricsUnlocked = false;
+
+function toggleMetricsEdit() {
+  metricsUnlocked = !metricsUnlocked;
+  const inputs = ['weightInput','waistInput','chestInput','pushupsInput'];
+  const btn = document.getElementById('metricsEditBtn');
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (metricsUnlocked) {
+      el.style.pointerEvents = 'auto';
+      el.style.opacity = '1';
+      el.classList.add('unlocked');
+    } else {
+      el.style.pointerEvents = 'none';
+      el.style.opacity = '0.5';
+      el.classList.remove('unlocked');
+    }
+  });
+  if (btn) {
+    btn.textContent = metricsUnlocked ? '✅ DONE' : '✏️ EDIT';
+    btn.style.color = metricsUnlocked ? 'var(--green)' : 'var(--muted)';
+    btn.style.borderColor = metricsUnlocked ? 'var(--green)' : 'var(--border)';
+  }
+}
+
+function logMetric(key, val) {
+  if (!val || isNaN(parseFloat(val))) return;
+  const s = getState();
+  const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  if (!s.metricLogs) s.metricLogs = {};
+  if (!s.metricLogs[key]) s.metricLogs[key] = [];
+  // Remove existing entry for today if any
+  s.metricLogs[key] = s.metricLogs[key].filter(e => e.date !== today);
+  s.metricLogs[key].push({ date: today, val: parseFloat(val), ts: Date.now() });
+  // Keep last 365 entries
+  s.metricLogs[key] = s.metricLogs[key].slice(-365);
+  // Also save current value
+  s[key] = val;
+  localStorage.setItem('forge_state', JSON.stringify(s));
+  updateMetricTrends();
+  if (key === 'weight') { updateWeightChart(); loadMetrics(); }
+}
+
+function updateMetricTrends() {
+  const s = getState();
+  const logs = s.metricLogs || {};
+
+  // Waist trend
+  const waistLogs = logs.waist || [];
+  const waistEl = document.getElementById('waistTrend');
+  if (waistEl && waistLogs.length >= 2) {
+    const diff = (waistLogs[waistLogs.length-1].val - waistLogs[0].val).toFixed(1);
+    const arrow = diff < 0 ? '↓' : diff > 0 ? '↑' : '→';
+    const col = diff < 0 ? 'var(--green)' : diff > 0 ? 'var(--accent2)' : 'var(--muted)';
+    waistEl.innerHTML = `<span style="color:${col}">${arrow} ${Math.abs(diff)}" since start</span>`;
+  } else if (waistEl && waistLogs.length === 1) {
+    waistEl.textContent = `${waistLogs[0].val}" logged`;
+  }
+
+  // Chest trend
+  const chestLogs = logs.chest || [];
+  const chestEl = document.getElementById('chestTrend');
+  if (chestEl && chestLogs.length >= 2) {
+    const diff = (chestLogs[chestLogs.length-1].val - chestLogs[0].val).toFixed(1);
+    const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
+    const col = diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--accent2)' : 'var(--muted)';
+    chestEl.innerHTML = `<span style="color:${col}">${arrow} ${Math.abs(diff)}" since start</span>`;
+  } else if (chestEl && chestLogs.length === 1) {
+    chestEl.textContent = `${chestLogs[0].val}" logged`;
+  }
+
+  // Push-ups trend
+  const pushLogs = logs.pushups || [];
+  const pushEl = document.getElementById('pushupsTrend');
+  if (pushEl && pushLogs.length >= 2) {
+    const diff = pushLogs[pushLogs.length-1].val - pushLogs[0].val;
+    const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
+    const col = diff > 0 ? 'var(--green)' : diff < 0 ? 'var(--accent2)' : 'var(--muted)';
+    pushEl.innerHTML = `<span style="color:${col}">${arrow} ${Math.abs(diff)} reps since start · best: ${Math.max(...pushLogs.map(l=>l.val))}</span>`;
+  } else if (pushEl && pushLogs.length === 1) {
+    pushEl.textContent = `${pushLogs[0].val} reps logged`;
+  }
+}
+
+// ══════════════════════════════════════
+// LOAD METRICS FROM STORAGE
+// ══════════════════════════════════════
+function loadMetrics() {
+  const s = getState();
+  const logs = s.metricLogs || {};
+  // Load latest value for each metric
+  const latestVal = (key, fallback) => {
+    const arr = logs[key] || [];
+    return arr.length ? arr[arr.length-1].val : (s[key] || fallback || '');
+  };
+  const w = latestVal('weight', USER.weightLbs);
+  const waist = latestVal('waist', '');
+  const chest = latestVal('chest', '');
+  const pushups = latestVal('pushups', '');
+  document.getElementById('weightInput').value = w || '';
+  if (waist) document.getElementById('waistInput').value = waist;
+  if (chest) document.getElementById('chestInput').value = chest;
+  if (pushups) document.getElementById('pushupsInput').value = pushups;
+  // Show weight log count
+  const wLogs = logs.weight || [];
+  const weightLatestEl = document.getElementById('weightLatest');
+  if (weightLatestEl) {
+    if (wLogs.length > 1) {
+      const first = wLogs[0].val, last = wLogs[wLogs.length-1].val;
+      const diff = (last - first).toFixed(1);
+      const arrow = diff < 0 ? '↓' : diff > 0 ? '↑' : '→';
+      const col = diff < 0 ? 'var(--green)' : diff > 0 ? 'var(--accent2)' : 'var(--muted)';
+      weightLatestEl.innerHTML = `<span style="color:${col}">${arrow} ${Math.abs(diff)} lbs since start · ${wLogs.length} entries</span>`;
+    } else if (wLogs.length === 1) {
+      weightLatestEl.textContent = `${wLogs[0].val} lbs · logged ${wLogs[0].date}`;
+    }
+  }
+  updateMetricTrends();
+
+  // Show BMI
+  const bmiEl = document.getElementById('bmiDisplay');
+  if (bmiEl) {
+    const curWeight = parseFloat(w) || USER.weightLbs;
+    const bmi = ((curWeight / (USER.heightIn * USER.heightIn)) * 703).toFixed(1);
+    const cat = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal' : bmi < 30 ? 'Overweight' : 'Obese';
+    const col = bmi < 25 ? 'var(--green)' : 'var(--orange)';
+    bmiEl.innerHTML = `<span style="font-family:Bebas Neue;font-size:28px;color:${col}">${bmi}</span> <span style="font-size:11px;color:var(--muted)">${cat}</span>`;
+  }
+
+  // Program week
+  const { week, phase } = getProgramWeek();
+  if (week > 0) {
+    document.getElementById('weekNum').textContent = week;
+    document.getElementById('weekPhase').textContent = phase;
+  }
+
+  // HR zones banner
+  const hrEl = document.getElementById('hrZonesBanner');
+  if (hrEl) {
+    hrEl.innerHTML = `
+      <div style="font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:10px">YOUR HEART RATE ZONES · AGE 49</div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-family:'Space Mono';font-size:9px;color:var(--green);letter-spacing:1px">FAT BURN</div>
+          <div style="font-family:'Bebas Neue';font-size:22px;color:var(--text)">${USER.zone2Lo}–${USER.zone2Hi}</div>
+          <div style="font-size:10px;color:var(--muted)">bpm · Zone 2</div>
+        </div>
+        <div style="flex:1;background:rgba(255,150,64,0.08);border:1px solid rgba(255,150,64,0.2);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-family:'Space Mono';font-size:9px;color:var(--orange);letter-spacing:1px">AEROBIC</div>
+          <div style="font-family:'Bebas Neue';font-size:22px;color:var(--text)">${USER.zone2Hi}–${USER.zone3Hi}</div>
+          <div style="font-size:10px;color:var(--muted)">bpm · Zone 3</div>
+        </div>
+        <div style="flex:1;background:rgba(255,69,102,0.08);border:1px solid rgba(255,69,102,0.2);border-radius:10px;padding:10px;text-align:center">
+          <div style="font-family:'Space Mono';font-size:9px;color:var(--accent2);letter-spacing:1px">MAX HR</div>
+          <div style="font-family:'Bebas Neue';font-size:22px;color:var(--text)">${USER.maxHR}</div>
+          <div style="font-size:10px;color:var(--muted)">bpm ceiling</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5">
+        🚴 For fat loss: keep cardio in <strong style="color:var(--green)">Zone 2 (${USER.zone2Lo}–${USER.zone2Hi} bpm)</strong> — bike rides, walks, skating all count. Your Apple Watch will show this live.
+      </div>`;
+  }
+
+  // Target kcal display
+  const kcalEl = document.getElementById('targetKcalDisplay');
+  if (kcalEl) kcalEl.textContent = USER.targetKcal.toLocaleString();
+}
+function saveMetric(key, val) {
+  logMetric(key, val);
+}
+
+// ══════════════════════════════════════
+// ══════════════════════════════════════
+// MOVE TRACKER (native - no iframe)
+// ══════════════════════════════════════
+const MOVE_ACTS = {
+  run:   { label:'RUN/JOG', met:9.8,  col:'#00ff88', trail:'rgba(0,255,136,0.4)'  },
+  walk:  { label:'WALK',    met:3.5,  col:'#4d9fff', trail:'rgba(77,159,255,0.4)' },
+  bike:  { label:'BIKE',    met:7.5,  col:'#e8ff00', trail:'rgba(232,255,0,0.4)'  },
+  skate: { label:'SKATE',   met:5.0,  col:'#ff9640', trail:'rgba(255,150,64,0.4)' },
+};
+const MOVE_WT = 75.75;
+let moveAct = 'run', moveRunning = false, moveStartTime = null, moveElMs = 0;
+let moveTInt = null, moveWId = null, moveDInt = null;
+let movePos = [], moveDist = 0, moveSplits = [], moveBpmH = [], moveElevH = [];
+let moveCanvasEl, moveTCC, moveElevEl, moveECC, moveBpmEl, moveBCC;
+let moveInited = false;
+
+function moveInit() {
+  if (moveInited) return;
+  moveInited = true;
+  moveCanvasEl = document.getElementById('moveCanvas');
+  moveElevEl   = document.getElementById('moveElevCanvas');
+  moveBpmEl    = document.getElementById('moveBpmCanvas');
+  if (!moveCanvasEl) return;
+  moveTCC = moveCanvasEl.getContext('2d');
+  moveECC = moveElevEl.getContext('2d');
+  moveBCC = moveBpmEl.getContext('2d');
+  moveResize();
+  window.addEventListener('resize', moveResize);
+}
+
+function moveResize() {
+  if (!moveCanvasEl) return;
+  const dpr = window.devicePixelRatio || 1;
+  const w = moveCanvasEl.parentElement.clientWidth;
+  moveCanvasEl.width  = w * dpr;
+  moveCanvasEl.height = 220 * dpr;
+  moveCanvasEl.style.width  = w + 'px';
+  moveCanvasEl.style.height = '220px';
+  if (moveElevEl) {
+    moveElevEl.width  = (moveElevEl.parentElement.clientWidth) * dpr;
+    moveElevEl.height = 22 * dpr;
+  }
+  if (moveBpmEl) {
+    moveBpmEl.width  = moveBpmEl.parentElement.clientWidth * dpr;
+    moveBpmEl.height = 24 * dpr;
+  }
+  moveDrawTrail();
+}
+
+function moveSetAct(a) {
+  if (moveRunning) return;
+  moveAct = a;
+  const A = MOVE_ACTS[a];
+  const colors = { run:'#00ff88', walk:'#4d9fff', bike:'#e8ff00', skate:'#ff9640' };
+  ['run','walk','bike','skate'].forEach(id => {
+    const btn = document.getElementById('mab-' + id);
+    if (!btn) return;
+    const active = id === a;
+    btn.style.border   = active ? `2px solid ${colors[id]}` : '1px solid #252540';
+    btn.style.background = active ? `rgba(${id==='run'?'0,255,136':id==='walk'?'77,159,255':id==='bike'?'232,255,0':'255,150,64'},0.12)` : '#16162a';
+    btn.style.color    = active ? '#eeeef8' : '#5a5a88';
+    const lbl = btn.querySelector('span:last-child');
+    if (lbl) lbl.style.color = active ? colors[id] : '#5a5a88';
+  });
+  const lbl = document.getElementById('moveActLabel');
+  if (lbl) lbl.textContent = A.label + ' · ELAPSED TIME';
+  const startBtn = document.getElementById('moveBtnStart');
+  if (startBtn) startBtn.textContent = 'START ' + (a==='run'?'🏃':a==='walk'?'🚶':a==='bike'?'🚴':'🛹');
+  moveDrawTrail();
+}
+
+function moveHav(a,b,c,d) {
+  const R=6371, dL=(c-a)*Math.PI/180, dN=(d-b)*Math.PI/180;
+  const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dN/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+
+function moveDrawTrail() {
+  if (!moveTCC) return;
+  const A = MOVE_ACTS[moveAct];
+  const W = moveCanvasEl.width, H = moveCanvasEl.height, dpr = window.devicePixelRatio||1;
+  moveTCC.clearRect(0,0,W,H);
+  moveTCC.strokeStyle = 'rgba(37,37,64,0.5)'; moveTCC.lineWidth = 1;
+  const g = 40*dpr;
+  for (let x=0;x<W;x+=g){moveTCC.beginPath();moveTCC.moveTo(x,0);moveTCC.lineTo(x,H);moveTCC.stroke();}
+  for (let y=0;y<H;y+=g){moveTCC.beginPath();moveTCC.moveTo(0,y);moveTCC.lineTo(W,y);moveTCC.stroke();}
+  if (movePos.length < 2) {
+    moveTCC.fillStyle='rgba(90,90,120,0.3)';
+    moveTCC.font=(12*dpr)+'px Space Mono';
+    moveTCC.textAlign='center';
+    moveTCC.fillText('Select activity & tap Start', W/2, H/2);
+    return;
+  }
+  const lats=movePos.map(p=>p.lat), lngs=movePos.map(p=>p.lng);
+  const minLat=Math.min(...lats), maxLat=Math.max(...lats);
+  const minLng=Math.min(...lngs), maxLng=Math.max(...lngs);
+  const pad=40*dpr;
+  const proj=(lat,lng)=>{
+    const rx=maxLng-minLng||0.001, ry=maxLat-minLat||0.001;
+    const sc=Math.min((W-pad*2)/rx,(H-pad*2)/ry);
+    return {x:pad+(lng-minLng)*sc+((W-pad*2)-rx*sc)/2, y:H-pad-(lat-minLat)*sc-((H-pad*2)-ry*sc)/2};
+  };
+  const pts=movePos.map(p=>proj(p.lat,p.lng));
+  moveTCC.shadowColor=A.trail; moveTCC.shadowBlur=10*dpr;
+  moveTCC.strokeStyle=A.trail; moveTCC.lineWidth=8*dpr;
+  moveTCC.lineCap='round'; moveTCC.lineJoin='round';
+  moveTCC.beginPath(); moveTCC.moveTo(pts[0].x,pts[0].y);
+  pts.forEach(p=>moveTCC.lineTo(p.x,p.y)); moveTCC.stroke();
+  moveTCC.shadowBlur=0; moveTCC.strokeStyle=A.col; moveTCC.lineWidth=2*dpr;
+  moveTCC.beginPath(); moveTCC.moveTo(pts[0].x,pts[0].y);
+  pts.forEach(p=>moveTCC.lineTo(p.x,p.y)); moveTCC.stroke();
+  moveTCC.fillStyle=A.col;
+  moveTCC.beginPath(); moveTCC.arc(pts[0].x,pts[0].y,5*dpr,0,Math.PI*2); moveTCC.fill();
+  const last=pts[pts.length-1];
+  moveTCC.fillStyle='#fff'; moveTCC.shadowColor='rgba(255,255,255,0.9)'; moveTCC.shadowBlur=10*dpr;
+  moveTCC.beginPath(); moveTCC.arc(last.x,last.y,6*dpr,0,Math.PI*2); moveTCC.fill();
+  moveTCC.shadowBlur=0;
+}
+
+function moveDrawElev() {
+  if (!moveECC || moveElevH.length < 2) return;
+  const W=moveElevEl.width, H=moveElevEl.height;
+  moveECC.clearRect(0,0,W,H);
+  const mn=Math.min(...moveElevH), mx=Math.max(...moveElevH), r=mx-mn||1;
+  moveECC.fillStyle='rgba(77,159,255,0.15)';
+  moveECC.beginPath(); moveECC.moveTo(0,H);
+  moveElevH.forEach((e,i)=>moveECC.lineTo(i/(moveElevH.length-1)*W,H-((e-mn)/r)*(H*0.8)-H*0.1));
+  moveECC.lineTo(W,H); moveECC.closePath(); moveECC.fill();
+  moveECC.strokeStyle='#4d9fff'; moveECC.lineWidth=1.5;
+  moveECC.beginPath();
+  moveElevH.forEach((e,i)=>{const x=i/(moveElevH.length-1)*W,y=H-((e-mn)/r)*(H*0.8)-H*0.1; i===0?moveECC.moveTo(x,y):moveECC.lineTo(x,y);});
+  moveECC.stroke();
+}
+
+function moveDrawBpm() {
+  if (!moveBCC || moveBpmH.length < 2) return;
+  const W=moveBpmEl.width, H=moveBpmEl.height;
+  moveBCC.clearRect(0,0,W,H);
+  const mn=Math.min(...moveBpmH)-5, mx=Math.max(...moveBpmH)+5, r=mx-mn;
+  const col = moveBpmH[moveBpmH.length-1]>160?'#ff4566':'#ff9640';
+  moveBCC.strokeStyle=col; moveBCC.lineWidth=1.5;
+  moveBCC.beginPath();
+  moveBpmH.forEach((b,i)=>{const x=i/(moveBpmH.length-1)*W,y=H-((b-mn)/r)*H; i===0?moveBCC.moveTo(x,y):moveBCC.lineTo(x,y);});
+  moveBCC.stroke();
+}
+
+function moveTick() {
+  moveElMs = Date.now() - moveStartTime;
+  const s=Math.floor(moveElMs/1000), h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sc=s%60;
+  const timerEl = document.getElementById('moveTimer');
+  if (timerEl) timerEl.textContent = String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');
+  if (moveRunning) {
+    const bpm = Math.round(118+Math.sin(moveElMs/8000)*10+(Math.random()-.5)*5);
+    moveBpmH.push(bpm); if (moveBpmH.length>60) moveBpmH.shift();
+    const bpmColor = bpm>139?'#ff4566':bpm>122?'#ff9640':'#00ff88';
+    const bpmEl = document.getElementById('moveBpm');
+    if (bpmEl) bpmEl.innerHTML = `<span style="color:${bpmColor}">${bpm}</span><span style="font-size:11px;color:#5a5a88;margin-left:2px;">bpm</span>`;
+    moveDrawBpm();
+    const hrs = moveElMs/1000/3600;
+    const cal = Math.round(MOVE_ACTS[moveAct].met * MOVE_WT * hrs);
+    const calEl = document.getElementById('moveCal');
+    if (calEl) calEl.innerHTML = `${cal}<span style="font-size:11px;color:#5a5a88;margin-left:2px;">kcal</span>`;
+  }
+}
+
+function moveStart() {
+  if (moveRunning) return;
+  moveInit();
+  moveRunning=true; moveStartTime=Date.now();
+  movePos=[]; moveDist=0; moveSplits=[]; moveBpmH=[]; moveElevH=[];
+  const timerEl = document.getElementById('moveTimer');
+  if (timerEl) timerEl.style.color = MOVE_ACTS[moveAct].col;
+  document.getElementById('moveBtnStart').style.display='none';
+  document.getElementById('moveBtnStop').style.display='flex';
+  document.getElementById('moveActSel').style.opacity='0.5';
+  document.getElementById('moveActSel').style.pointerEvents='none';
+  moveTInt = setInterval(moveTick, 1000);
+  if (navigator.geolocation) moveWId = navigator.geolocation.watchPosition(moveOnPos, ()=>{}, {enableHighAccuracy:true});
+}
+
+function moveOnPos(p) {
+  const {latitude:lat, longitude:lng, altitude:alt} = p.coords;
+  const ts = Date.now();
+  if (movePos.length > 0) {
+    const prev = movePos[movePos.length-1];
+    const d = moveHav(prev.lat, prev.lng, lat, lng);
+    if (d < 0.003) return;
+    moveDist += d;
+    const distEl=document.getElementById('moveDist');
+    if (distEl) distEl.innerHTML=`${moveDist.toFixed(2)}<span style="font-size:11px;color:#5a5a88;margin-left:2px;">km</span>`;
+    const stepsEl=document.getElementById('moveSteps');
+    if (stepsEl) stepsEl.textContent=`~${Math.round(moveDist*1300)} steps`;
+    const el=(ts-moveStartTime)/1000;
+    if (moveDist>0) {
+      const ps=el/moveDist, pm=Math.floor(ps/60), psc=Math.round(ps%60);
+      const paceEl=document.getElementById('movePace');
+      if (paceEl) paceEl.innerHTML=`${pm}:${String(psc).padStart(2,'0')}<span style="font-size:11px;color:#5a5a88;margin-left:2px;">m/km</span>`;
+    }
+    const coord=document.getElementById('moveCoordBadge');
+    if (coord) coord.textContent=`${lat.toFixed(4)}° ${lng.toFixed(4)}°`;
+    // Splits
+    const km=Math.floor(moveDist);
+    if (km>moveSplits.length && moveSplits.length<20) {
+      const ss=(ts-moveStartTime)/1000 - moveSplits.reduce((a,s)=>{const p=s.split(':');return a+(+p[0]*60+ +p[1]);},0);
+      const pm2=Math.floor(ss/60), ps2=Math.round(ss%60);
+      moveSplits.push(`${pm2}:${String(ps2).padStart(2,'0')}`);
+      moveRenderSplits();
+    }
+  }
+  movePos.push({lat,lng,alt:alt||null,ts});
+  if (alt!==null) { moveElevH.push(alt); moveDrawElev(); }
+  moveDrawTrail();
+}
+
+function moveStop() {
+  moveRunning=false;
+  clearInterval(moveTInt);
+  if (moveWId!==null) navigator.geolocation.clearWatch(moveWId);
+  clearInterval(moveDInt);
+  const timerEl=document.getElementById('moveTimer');
+  if (timerEl) timerEl.style.color='#eeeef8';
+  document.getElementById('moveBtnStart').style.display='flex';
+  document.getElementById('moveBtnStop').style.display='none';
+  document.getElementById('moveActSel').style.opacity='1';
+  document.getElementById('moveActSel').style.pointerEvents='auto';
+  // Auto-save session if meaningful distance
+  if (moveDist > 0.05) {
+    moveSaveSession();
+  }
+}
+
+// ── RUN HISTORY ──────────────────────────────────────────
+function moveSaveSession() {
+  const s = getState();
+  if (!s.runHistory) s.runHistory = [];
+  const A = MOVE_ACTS[moveAct];
+  const secs = Math.floor(moveElMs / 1000);
+  const avgPaceSecs = moveDist > 0 ? secs / moveDist : 0;
+  const pm = Math.floor(avgPaceSecs / 60), ps = Math.round(avgPaceSecs % 60);
+  const bpmMin = moveBpmH.length ? Math.min(...moveBpmH) : 0;
+  const bpmMax = moveBpmH.length ? Math.max(...moveBpmH) : 0;
+  const elevGain = moveElevH.length > 1
+    ? Math.round(moveElevH.reduce((acc, e, i) => i > 0 && e > moveElevH[i-1] ? acc + (e - moveElevH[i-1]) : acc, 0))
+    : 0;
+  const cal = Math.round(A.met * MOVE_WT * (secs / 3600));
+  const session = {
+    id: Date.now(),
+    act: moveAct,
+    label: A.label,
+    date: new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}),
+    dist: parseFloat(moveDist.toFixed(2)),
+    secs,
+    cal,
+    pace: moveDist > 0 ? `${pm}:${String(ps).padStart(2,'0')}` : '—',
+    bpmMin, bpmMax,
+    elevGain,
+    splits: [...moveSplits],
+    route: movePos.map(p => ({lat:p.lat, lng:p.lng})), // GPS trail for replay
+  };
+  s.runHistory.unshift(session); // newest first
+  localStorage.setItem('forge_state', JSON.stringify(s));
+  renderRunHistory();
+}
+
+let historySelectMode = false;
+const historySelected = new Set();
+
+function renderRunHistory() {
+  const container = document.getElementById('runHistoryContainer');
+  if (!container) return;
+  const s = getState();
+  const history = s.runHistory || [];
+  if (history.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:24px;color:var(--muted);font-size:13px;">No sessions saved yet.<br>Complete a session to see it here.</div>';
+    return;
+  }
+  const icons = {run:'🏃',walk:'🚶',bike:'🚴',skate:'🛹'};
+  const cols  = {run:'#00ff88',walk:'#4d9fff',bike:'#e8ff00',skate:'#ff9640'};
+  container.innerHTML = '';
+  history.forEach((session, idx) => {
+    const mins = Math.floor(session.secs/60), secs2 = session.secs%60;
+    const dur = `${mins}:${String(secs2).padStart(2,'0')}`;
+    const isSelected = historySelected.has(session.id);
+    const item = document.createElement('div');
+    item.className = `run-history-item${isSelected ? ' selected' : ''}`;
+    item.dataset.id = session.id;
+    item.innerHTML = `
+      <div class="run-history-header" onclick="historyToggleExpand(this, ${session.id})">
+        ${historySelectMode ? `<div class="run-select-check" onclick="event.stopPropagation();historyToggleItem(${session.id})">${isSelected?'✓':''}</div>` : ''}
+        <div class="run-act-icon">${icons[session.act]||'🏃'}</div>
+        <div class="run-info">
+          <div class="run-title" style="color:${cols[session.act]||'var(--accent)'};">${session.label}</div>
+          <div class="run-meta">${session.date} · ${dur} · ${session.pace}/km</div>
+        </div>
+        <div class="run-dist-badge" style="color:${cols[session.act]||'var(--accent)'};">${session.dist}km</div>
+        <div class="open-arrow" style="color:var(--muted);font-size:14px;margin-left:6px;">›</div>
+      </div>
+      <div class="run-expand" id="runexp-${session.id}">
+        ${session.route && session.route.length > 1 ? `<canvas id="routeMap-${session.id}" style="width:100%;height:160px;display:block;background:#10101c;border-radius:10px;margin-top:10px;margin-bottom:6px;"></canvas>` : ''}
+        <div class="run-stat-row">
+          <div class="run-stat-chip"><span>${session.cal}</span><small>KCAL</small></div>
+          <div class="run-stat-chip"><span>${dur}</span><small>DURATION</small></div>
+          <div class="run-stat-chip"><span>${session.pace}</span><small>PACE /KM</small></div>
+          ${session.bpmMax ? `<div class="run-stat-chip"><span>${session.bpmMin}–${session.bpmMax}</span><small>BPM RANGE</small></div>` : ''}
+          ${session.elevGain ? `<div class="run-stat-chip"><span>${session.elevGain}m</span><small>ELEV GAIN</small></div>` : ''}
+        </div>
+        ${session.splits && session.splits.length > 1 ? `
+        <div style="margin-top:10px;">
+          <div style="font-family:'Space Mono';font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">KM SPLITS</div>
+          ${session.splits.map((s,i)=>`<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid var(--border);"><span style="color:var(--muted);">KM ${i+1}</span><span style="font-family:'Space Mono';">${s} /km</span></div>`).join('')}
+        </div>` : ''}
+        <button class="run-delete-btn" onclick="historyDeleteOne(${session.id})">🗑 Delete this session</button>
+      </div>`;
+    container.appendChild(item);
+  });
+}
+
+function historyToggleExpand(header, id) {
+  if (historySelectMode) return;
+  const expand = document.getElementById('runexp-' + id);
+  const arrow = header.querySelector('.open-arrow');
+  if (!expand) return;
+  const isOpen = expand.classList.contains('open');
+  expand.classList.toggle('open', !isOpen);
+  if (arrow) arrow.classList.toggle('rotated', !isOpen);
+  // Draw route map when opening
+  if (!isOpen) {
+    setTimeout(() => historyDrawRoute(id), 50);
+  }
+}
+
+function historyDrawRoute(id) {
+  const canvas = document.getElementById('routeMap-' + id);
+  if (!canvas) return;
+  const s = getState();
+  const session = (s.runHistory || []).find(r => r.id === id);
+  if (!session || !session.route || session.route.length < 2) return;
+  const cols = {run:'#00ff88',walk:'#4d9fff',bike:'#e8ff00',skate:'#ff9640'};
+  const col = cols[session.act] || '#00ff88';
+  const dpr = window.devicePixelRatio || 1;
+  const W = canvas.parentElement.clientWidth;
+  canvas.width = W * dpr;
+  canvas.height = 160 * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = '160px';
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Grid
+  ctx.strokeStyle = 'rgba(37,37,64,0.5)'; ctx.lineWidth = 1;
+  const g = 30 * dpr;
+  for (let x=0;x<canvas.width;x+=g){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();}
+  for (let y=0;y<canvas.height;y+=g){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}
+  // Project coords
+  const lats = session.route.map(p=>p.lat);
+  const lngs = session.route.map(p=>p.lng);
+  const minLat=Math.min(...lats), maxLat=Math.max(...lats);
+  const minLng=Math.min(...lngs), maxLng=Math.max(...lngs);
+  const pad = 20*dpr;
+  const proj = (lat,lng) => {
+    const rx=maxLng-minLng||0.001, ry=maxLat-minLat||0.001;
+    const sc=Math.min((canvas.width-pad*2)/rx,(canvas.height-pad*2)/ry);
+    return {
+      x: pad+(lng-minLng)*sc+((canvas.width-pad*2)-rx*sc)/2,
+      y: canvas.height-pad-(lat-minLat)*sc-((canvas.height-pad*2)-ry*sc)/2
+    };
+  };
+  const pts = session.route.map(p=>proj(p.lat,p.lng));
+  // Glow trail
+  ctx.shadowColor = col; ctx.shadowBlur = 8*dpr;
+  ctx.strokeStyle = col.replace(')',',0.3)').replace('rgb','rgba'); 
+  ctx.lineWidth = 6*dpr; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.beginPath(); ctx.moveTo(pts[0].x,pts[0].y);
+  pts.forEach(p=>ctx.lineTo(p.x,p.y)); ctx.stroke();
+  // Main line
+  ctx.shadowBlur = 0; ctx.strokeStyle = col; ctx.lineWidth = 2*dpr;
+  ctx.beginPath(); ctx.moveTo(pts[0].x,pts[0].y);
+  pts.forEach(p=>ctx.lineTo(p.x,p.y)); ctx.stroke();
+  // Start dot
+  ctx.fillStyle = col; ctx.shadowColor=col; ctx.shadowBlur=8*dpr;
+  ctx.beginPath(); ctx.arc(pts[0].x,pts[0].y,5*dpr,0,Math.PI*2); ctx.fill();
+  // End dot
+  const last=pts[pts.length-1];
+  ctx.fillStyle='#fff'; ctx.shadowColor='rgba(255,255,255,0.9)'; ctx.shadowBlur=10*dpr;
+  ctx.beginPath(); ctx.arc(last.x,last.y,6*dpr,0,Math.PI*2); ctx.fill();
+  ctx.shadowBlur=0;
+  // Distance label
+  ctx.fillStyle='rgba(8,8,16,0.8)';
+  ctx.roundRect(pad, pad, 70*dpr, 22*dpr, 4*dpr);
+  ctx.fill();
+  ctx.fillStyle=col; ctx.font=`bold ${10*dpr}px Space Mono`; ctx.textAlign='left';
+  ctx.fillText(`${session.dist}km · ${session.label}`, pad+6*dpr, pad+15*dpr);
+}
+
+function historyToggleSelect() {
+  historySelectMode = !historySelectMode;
+  historySelected.clear();
+  const btn = document.getElementById('historySelectBtn');
+  const delBtn = document.getElementById('historyDeleteAllBtn');
+  if (btn) btn.textContent = historySelectMode ? 'Cancel' : 'Select';
+  if (delBtn) delBtn.style.display = historySelectMode ? 'block' : 'none';
+  renderRunHistory();
+}
+
+function historyToggleItem(id) {
+  if (historySelected.has(id)) historySelected.delete(id);
+  else historySelected.add(id);
+  const delBtn = document.getElementById('historyDeleteAllBtn');
+  if (delBtn) delBtn.textContent = `Delete Selected (${historySelected.size})`;
+  renderRunHistory();
+}
+
+function historyDeleteOne(id) {
+  const s = getState();
+  s.runHistory = (s.runHistory || []).filter(r => r.id !== id);
+  localStorage.setItem('forge_state', JSON.stringify(s));
+  renderRunHistory();
+  updateCardioStats();
+}
+
+function historyDeleteSelected() {
+  if (historySelected.size === 0) return;
+  if (!confirm(`Delete ${historySelected.size} session${historySelected.size>1?'s':''}?`)) return;
+  const s = getState();
+  s.runHistory = (s.runHistory || []).filter(r => !historySelected.has(r.id));
+  localStorage.setItem('forge_state', JSON.stringify(s));
+  historySelected.clear();
+  historySelectMode = false;
+  const btn = document.getElementById('historySelectBtn');
+  const delBtn = document.getElementById('historyDeleteAllBtn');
+  if (btn) btn.textContent = 'Select';
+  if (delBtn) delBtn.style.display = 'none';
+  renderRunHistory();
+  updateCardioStats();
+}
+
+// ── CARDIO STATS FOR PROGRESS TAB ──────────────────────────────
+function updateCardioStats() {
+  const s = getState();
+  const history = s.runHistory || [];
+  // Get this week's sessions (Mon May 11 – Sun May 17 for week 1)
+  const { week } = getProgramWeek();
+  const offset = typeof progressWeekOffset !== 'undefined' ? progressWeekOffset : 0;
+  const viewWeek = Math.max(1, week + offset);
+  const programMonday = new Date(2026, 5, 8); // Jun 8 2026
+  const weekStart = new Date(programMonday);
+  weekStart.setDate(programMonday.getDate() + (viewWeek - 1) * 7);
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 7);
+
+  const weekSessions = history.filter(r => {
+    const d = new Date(r.id); // id is timestamp
+    return d >= weekStart && d < weekEnd;
+  });
+
+  const totalKm   = weekSessions.reduce((a,r) => a + r.dist, 0);
+  const totalMins = weekSessions.reduce((a,r) => a + Math.floor(r.secs/60), 0);
+  const totalKcal = weekSessions.reduce((a,r) => a + r.cal, 0);
+
+  const kmEl   = document.getElementById('cardioKm');
+  const minsEl = document.getElementById('cardioMins');
+  const kcalEl = document.getElementById('cardioKcal');
+  if (kmEl)   kmEl.textContent   = totalKm.toFixed(1);
+  if (minsEl) minsEl.textContent = totalMins;
+  if (kcalEl) kcalEl.textContent = totalKcal;
+}
+
+function moveDemo() {
+  moveStop();
+  moveInit();
+  setTimeout(()=>{
+    moveRunning=true; moveStartTime=Date.now();
+    movePos=[]; moveDist=0; moveSplits=[]; moveBpmH=[]; moveElevH=[];
+    const timerEl=document.getElementById('moveTimer');
+    if (timerEl) timerEl.style.color=MOVE_ACTS[moveAct].col;
+    document.getElementById('moveBtnStart').style.display='none';
+    document.getElementById('moveBtnStop').style.display='flex';
+    document.getElementById('moveActSel').style.opacity='0.5';
+    document.getElementById('moveActSel').style.pointerEvents='none';
+    moveTInt=setInterval(moveTick,1000);
+    let angle=0, lat=51.505, lng=-0.09, splitStart=Date.now();
+    moveDInt=setInterval(()=>{
+      if (!moveRunning){clearInterval(moveDInt);return;}
+      angle+=0.12+Math.sin(angle*0.3)*0.05;
+      const r=0.003+Math.sin(angle*0.5)*0.001;
+      lat+=Math.sin(angle)*r*0.0003; lng+=Math.cos(angle)*r*0.0003*1.4;
+      const alt=12+Math.sin(angle*0.7)*8+Math.random()*2, ts=Date.now();
+      if (movePos.length>0) {
+        const prev=movePos[movePos.length-1], d=moveHav(prev.lat,prev.lng,lat,lng);
+        moveDist+=d;
+        const distEl=document.getElementById('moveDist');
+        if (distEl) distEl.innerHTML=`${moveDist.toFixed(2)}<span style="font-size:11px;color:#5a5a88;margin-left:2px;">km</span>`;
+        const stepsEl=document.getElementById('moveSteps');
+        if (stepsEl) stepsEl.textContent=`~${Math.round(moveDist*1300)} steps`;
+        const el=(ts-moveStartTime)/1000;
+        if (moveDist>0.05){const ps=el/moveDist,pm=Math.floor(ps/60),ps2=Math.round(ps%60);const pe=document.getElementById('movePace');if(pe)pe.innerHTML=`${pm}:${String(ps2).padStart(2,'0')}<span style="font-size:11px;color:#5a5a88;margin-left:2px;">m/km</span>`;}
+        const km=Math.floor(moveDist);
+        if (km>moveSplits.length&&moveSplits.length<10){const ss=(ts-splitStart)/1000,pm2=Math.floor(ss/60),ps3=Math.round(ss%60);moveSplits.push(`${pm2}:${String(ps3).padStart(2,'0')}`);splitStart=ts;moveRenderSplits();}
+        const coord=document.getElementById('moveCoordBadge');
+        if (coord) coord.textContent=`${lat.toFixed(4)}° ${lng.toFixed(4)}°`;
+      }
+      movePos.push({lat,lng,ts}); moveElevH.push(alt);
+      if (moveElevH.length>200) moveElevH.shift();
+      moveDrawTrail(); moveDrawElev();
+    }, 200);
+  }, 80);
+}
+
+function moveRenderSplits() {
+  const container=document.getElementById('moveSplitsContainer');
+  const splitsDiv=document.getElementById('moveSplits');
+  if (!container||!splitsDiv) return;
+  splitsDiv.style.display='block';
+  container.innerHTML='';
+  if (moveSplits.length<2) return;
+  const mn=Math.min(...moveSplits.map(s=>{const p=s.split(':');return+p[0]*60+ +p[1];}));
+  const mx=Math.max(...moveSplits.map(s=>{const p=s.split(':');return+p[0]*60+ +p[1];}));
+  moveSplits.forEach((s,i)=>{
+    const p=s.split(':'), secs=+p[0]*60+ +p[1];
+    const pct=30+70*(1-(secs-mn)/((mx-mn)||1));
+    const d=document.createElement('div');
+    d.style.cssText='display:flex;align-items:center;gap:8px;margin-bottom:6px;';
+    d.innerHTML=`<div style="font-family:'Space Mono';font-size:10px;color:#5a5a88;width:20px;">${i+1}</div>`+
+      `<div style="flex:1;height:5px;background:#10101c;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:${MOVE_ACTS[moveAct].col};border-radius:3px;"></div></div>`+
+      `<div style="font-family:'Space Mono';font-size:10px;color:#eeeef8;width:52px;text-align:right;">${s} /km</div>`;
+    container.appendChild(d);
+  });
+}
+
+// ══════════════════════════════════════
+// PROGRESS WEEK SWITCHER
+// ══════════════════════════════════════
+let progressWeekOffset = 0; // 0 = current week, -1 = last week, etc.
+
+function progressChangeWeek(delta) {
+  progressWeekOffset += delta;
+  // Don't go beyond week 1 or into the future
+  const { week } = getProgramWeek();
+  if (progressWeekOffset > 0) progressWeekOffset = 0;
+  if (progressWeekOffset < -(week - 1)) progressWeekOffset = -(week - 1);
+  updateProgress();
+  drawWeightChart();
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'run') { setTimeout(moveInit, 100); setTimeout(renderRunHistory, 150); }
+  if (name === 'progress') { updateProgress(); drawWeightChart(); updateCardioStats(); }
+  if (name === 'meals') { setTimeout(()=>renderRestaurantGuide(), 100); }
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+renderToday();
+renderSchedule();
+buildPrefsUI();
+renderMeals();
+renderRestaurantGuide();
+loadMetrics();
+updateProgress();
+
+// Show pre-launch banner if program hasn't started yet
+(function() {
+  // Use EST (UTC-5) / EDT (UTC-4) aware date comparison
+  const now = new Date();
+  // Get today's date in EST timezone
+  const estNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+  const estToday = new Date(estNow.getFullYear(), estNow.getMonth(), estNow.getDate());
+  const programStart = new Date(2026, 5, 8); // Jun 8 2026 (month is 0-indexed)
+
+  const diffMs = programStart - estToday;
+
+  if (diffMs > 0) {
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+    const banner = document.getElementById('prelaunchBanner');
+    const countdown = document.getElementById('launchCountdown');
+    const label = document.getElementById('launchLabel');
+    banner.style.display = 'block';
+
+    if (diffDays === 1) {
+      // Grammar fix: "PROGRAM LAUNCHES TOMORROW" not "LAUNCHES IN TOMORROW"
+      if (label) label.textContent = 'PROGRAM LAUNCHES';
+      countdown.textContent = 'TOMORROW';
+    } else {
+      if (label) label.textContent = 'PROGRAM LAUNCHES IN';
+      countdown.textContent = diffDays + ' DAYS';
+    }
+
+    // Pre-launch: override today's hero to show rest message instead of exercises
+    const heroTitle = document.getElementById('todayTitle');
+    const heroSub = document.getElementById('todaySub');
+    const heroMeta = document.getElementById('todayMeta');
+    const exContainer = document.getElementById('todayExercises');
+    const sectionLabel = document.querySelector('.section-title');
+
+    // Make hero compact with status badge
+    const heroCard = document.getElementById('todayHero');
+    if (heroCard) {
+      heroCard.classList.add('compact');
+      // Add status badge if not already there
+      if (!heroCard.querySelector('.hero-status-badge')) {
+        const badge = document.createElement('div');
+        badge.className = 'hero-status-badge';
+        badge.textContent = '💤 REST & PREP';
+        heroCard.appendChild(badge);
+      }
+    }
+    if (heroTitle) {
+      heroTitle.textContent = 'REST & PREP';
+      heroTitle.style.color = 'var(--accent)';
+      heroTitle.style.fontSize = '28px';
+    }
+    if (heroSub) heroSub.textContent = 'Program starts Monday June 8 · Rest your back, prep your meals.';
+    if (heroMeta) heroMeta.innerHTML = '';
+    if (exContainer) {
+      exContainer.innerHTML = '<div class="rest-card">' +
+        '<div class="rest-icon">🔋</div>' +
+        '<div class="rest-title">PROGRAM NOT YET STARTED</div>' +
+        '<div class="rest-sub">' +
+        'Your first workout is <strong style="color:var(--accent)">Monday June 8</strong>.<br><br>' +
+        'Use today to:<br>' +
+        '🥗 Prep your meals for the week<br>' +
+        '💧 Stay hydrated<br>' +
+        '🛌 Rest your back<br>' +
+        '📱 Explore the app — check the Plan & Meals tabs' +
+        '</div></div>';
+    }
+    // Hide safety banner and section label — not relevant before program starts
+    const safetyBanner = document.getElementById('safetyBanner');
+    const exSection = document.getElementById('todayExSection');
+    if (safetyBanner) safetyBanner.style.display = 'none';
+    if (exSection) exSection.style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>
