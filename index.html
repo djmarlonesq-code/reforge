@@ -381,7 +381,7 @@ canvas { display:block; }
 <div class="app-header">
   <div class="header-row">
     <div class="app-logo"><span style="color:var(--text)">RE</span>FORGE</div>
-    <div class="week-badge">WEEK <strong id="weekNum">1</strong> · <span id="weekPhase">BACK SAFE</span></div>
+    <div class="week-badge">WEEK <strong id="weekNum">1</strong> · <span id="weekPhase">FOUNDATION</span></div>
   </div>
 </div>
 
@@ -393,14 +393,14 @@ canvas { display:block; }
   <div id="prelaunchBanner" style="display:none;background:linear-gradient(135deg,rgba(232,255,0,0.08),rgba(0,212,255,0.05));border:1px solid rgba(232,255,0,0.2);border-radius:14px;padding:16px;margin-bottom:12px;text-align:center;">
     <div style="font-family:'Bebas Neue';font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:4px" id="launchLabel">PROGRAM LAUNCHES IN</div>
     <div style="font-family:'Bebas Neue';font-size:48px;color:var(--accent);line-height:1" id="launchCountdown">2 DAYS</div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px">Monday June 8 · Use today to rest your back & prep meals</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Monday June 8 · Prep your meals & get ready to go</div>
   </div>
 
-  <div class="safety-banner" id="safetyBanner">
-    <div class="safety-icon">⚠️</div>
-    <div class="safety-text">
-      <strong>Back Recovery Mode — Week 1</strong>
-      All exercises this week are low-impact and spine-safe. No heavy loading, no twisting. Progress to Week 2 when your back feels ready.
+  <div id="safetyBanner" style="display:none;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start;">
+    <div style="font-size:20px;flex-shrink:0;">💪</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5;">
+      <strong style="color:var(--green);display:block;margin-bottom:2px;">Week 1 — Foundation</strong>
+      Real push-ups, core work, and active cardio. Push yourself — this is where it starts.
     </div>
   </div>
 
@@ -772,12 +772,12 @@ const SHORT = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
 // 5-day workout plan (Mon-Fri, Sat active, Sun rest)
 const WEEK_PLAN = [
-  { day: 'Monday',    focus: 'Chest & Push',          color: 'var(--accent3)', icon: '💪', duration: '20 min', exercises: ['pushup_wall','chest_squeeze','shoulder_tap','dead_bug'] },
-  { day: 'Tuesday',   focus: 'Core & Stability',       color: 'var(--accent)',  icon: '🧱', duration: '15 min', exercises: ['plank','dead_bug','glute_bridge','bird_dog'] },
-  { day: 'Wednesday', focus: 'Active Recovery',        color: 'var(--green)',   icon: '🚴', duration: '30 min', exercises: ['walk_or_bike'] },
-  { day: 'Thursday',  focus: 'Chest & Upper Body',     color: 'var(--accent3)', icon: '🔥', duration: '20 min', exercises: ['pushup_knee','diamond_pushup','arm_circle','plank'] },
-  { day: 'Friday',    focus: 'Core & Full Body',       color: 'var(--accent)',  icon: '⚡', duration: '20 min', exercises: ['leg_raise','plank','glute_bridge','pushup_knee','bird_dog'] },
-  { day: 'Saturday',  focus: 'Cardio + Full Body',     color: 'var(--orange)',  icon: '🏃', duration: '30 min', exercises: ['jog_walk','pushup_knee','plank','glute_bridge','dead_bug'] },
+  { day: 'Monday',    focus: 'Chest & Push',       color: 'var(--accent3)', icon: '💪', duration: '25 min', exercises: ['pushup_standard','diamond_pushup','shoulder_tap','chest_squeeze'] },
+  { day: 'Tuesday',   focus: 'Core Foundation',     color: 'var(--accent)',  icon: '🧱', duration: '20 min', exercises: ['plank','dead_bug','hollow_body','glute_bridge'] },
+  { day: 'Wednesday', focus: 'Active Recovery',     color: 'var(--green)',   icon: '🚴', duration: '30 min', exercises: ['walk_or_bike'] },
+  { day: 'Thursday',  focus: 'Chest & Push Power',  color: 'var(--accent3)', icon: '🔥', duration: '25 min', exercises: ['pushup_standard','diamond_pushup','pushup_wide','plank'] },
+  { day: 'Friday',    focus: 'Core & Full Body',    color: 'var(--accent)',  icon: '⚡', duration: '25 min', exercises: ['hollow_body','leg_raise','bird_dog','plank','glute_bridge'] },
+  { day: 'Saturday',  focus: 'Cardio + Full Body',  color: 'var(--orange)',  icon: '🏃', duration: '30 min', exercises: ['jog_walk','pushup_standard','plank','hollow_body','dead_bug'] },
   { day: 'Sunday',    focus: 'Rest & Recovery',        color: 'var(--muted)',   icon: '😴', duration: 'Rest',   exercises: [] },
 ];
 
@@ -797,11 +797,44 @@ const EXERCISES = {
     name: 'Knee Push-Ups',
     sets: '3 sets × 10–15 reps',
     badge: 'badge-chest', badgeText: 'CHEST',
-    desc: 'Get on all fours, knees on the floor. Walk hands forward until your body forms a diagonal line from knees to head. Perform push-up motion. More challenging than wall push-ups, still back-safe.',
-    tips: ['Hands slightly wider than shoulder width','Lower chest to just above ground','Keep core tight throughout','Progress to full push-ups when you hit 20 reps easily'],
+    desc: 'Get on all fours, knees on the floor. Walk hands forward until your body forms a diagonal line from knees to head. Perform push-up motion.',
+    tips: ['Hands slightly wider than shoulder width','Lower chest to just above ground','Keep core tight throughout','Use these on days when you are very fatigued'],
     yt: 'https://www.youtube.com/results?search_query=knee+push+up+proper+form',
     svgColor: 'var(--accent3)',
     svgKey: 'knee_pushup',
+    rest: '60 sec between sets'
+  },
+  pushup_standard: {
+    name: 'Standard Push-Ups',
+    sets: '3 sets × 10–15 reps',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'The foundation of upper body training. Full body on toes, hands shoulder-width apart. Lower your chest to just above the floor, push back up. You can do 15-20 of these — this is your primary chest builder now. Focus on slow controlled reps rather than speed.',
+    tips: ['Hands shoulder-width apart or slightly wider','Body in a straight line from head to heels — no sagging hips','Lower chest all the way down — full range of motion builds more muscle','3 seconds down, 1 second up — slow tempo burns more','If you hit failure, drop to knees and squeeze out 2-3 more'],
+    yt: 'https://www.youtube.com/results?search_query=perfect+push+up+form+tutorial',
+    svgColor: 'var(--accent3)',
+    svgKey: 'knee_pushup',
+    rest: '75 sec between sets'
+  },
+  pushup_wide: {
+    name: 'Wide Grip Push-Ups',
+    sets: '3 sets × 10–12 reps',
+    badge: 'badge-chest', badgeText: 'CHEST',
+    desc: 'Place hands wider than shoulder width — about 1.5x. This shifts emphasis to the outer chest and front deltoids. Combined with diamond push-ups you hit the entire chest from both angles. A wider chest gives the most visual impact.',
+    tips: ['Hands 1.5x shoulder width — feel the stretch in your chest','Elbows flare out more than standard push-up','Focus on squeezing chest at the top','Go to knees if form breaks down — better than shallow reps'],
+    yt: 'https://www.youtube.com/results?search_query=wide+grip+push+up+chest+form',
+    svgColor: 'var(--accent3)',
+    svgKey: 'pushup',
+    rest: '75 sec between sets'
+  },
+  hollow_body: {
+    name: 'Hollow Body Hold',
+    sets: '3 sets × 20–25 sec',
+    badge: 'badge-core', badgeText: 'CORE',
+    desc: 'Lie on your back. Press your lower back firmly into the floor. Lift your shoulders and legs off the ground simultaneously — legs straight, arms extended overhead or by your sides. Hold the position. This is the single best foundational core exercise. Gymnasts build their entire core strength on this one move.',
+    tips: ['Lower back MUST be pressed flat — this is the whole point','Start with knees bent if legs-straight is too hard','Arms by sides is easier, overhead is harder — start by sides','You will shake — that is the exercise working','Breathe steadily, do not hold your breath'],
+    yt: 'https://www.youtube.com/results?search_query=hollow+body+hold+tutorial+core',
+    svgColor: 'var(--accent)',
+    svgKey: 'dead_bug',
     rest: '60 sec between sets'
   },
   diamond_pushup: {
@@ -828,7 +861,7 @@ const EXERCISES = {
   },
   plank: {
     name: 'Forearm Plank',
-    sets: '3 sets × 20–30 sec',
+    sets: '3 sets × 25–30 sec',
     badge: 'badge-core', badgeText: 'CORE',
     desc: 'Forearms on the ground, elbows under shoulders. Lift your body so only forearms and toes touch the floor. Keep body in a straight line. Builds deep core muscles without loading the spine — ideal for your back recovery.',
     tips: ['Don\'t let hips sag or rise','Squeeze glutes and abs hard','Look down at the floor','Breathe — don\'t hold your breath'],
@@ -1865,9 +1898,14 @@ const planDay = WEEK_PLAN.find(p => p.day === todayName) || WEEK_PLAN[6];
 const todayKey = todayName;
 
 function renderToday() {
+  const { week, phase } = getProgramWeek();
+  // Show foundation banner once program has started
+  const foundationBanner = document.getElementById('safetyBanner');
+  if (foundationBanner && week > 0) foundationBanner.style.display = 'flex';
+
   document.getElementById('todayLabel').textContent = todayName.toUpperCase() + ' · ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
   document.getElementById('todayTitle').textContent = planDay.focus;
-  document.getElementById('todaySub').textContent = planDay.exercises.length ? `Back-safe · ${getProgramWeek().week > 0 ? 'Week ' + getProgramWeek().week : 'Starts Monday June 8'}` : 'Today is your rest day — you earned it.';
+  document.getElementById('todaySub').textContent = planDay.exercises.length ? `${getProgramWeek().phase} · ${getProgramWeek().week > 0 ? 'Week ' + getProgramWeek().week : 'Starts Monday June 8'}` : 'Today is your rest day — you earned it.';
   document.getElementById('todayTitle').style.color = planDay.color;
 
   const meta = document.getElementById('todayMeta');
@@ -2252,7 +2290,7 @@ function getProgramWeek() {
   const diffDays = Math.floor((now - USER.programStart) / (1000 * 60 * 60 * 24));
   if (diffDays < 0) return { week: 0, phase: 'STARTS MON' };
   const week = Math.floor(diffDays / 7) + 1;
-  const phases = ['BACK SAFE', 'BUILDING', 'STRENGTH', 'POWER', 'PEAK'];
+  const phases = ['FOUNDATION', 'BUILDING', 'STRENGTH', 'POWER', 'PEAK'];
   return { week, phase: phases[Math.min(week - 1, phases.length - 1)] };
 }
 
@@ -3055,17 +3093,17 @@ updateProgress();
         '<div class="rest-title">PROGRAM NOT YET STARTED</div>' +
         '<div class="rest-sub">' +
         'Your first workout is <strong style="color:var(--accent)">Monday June 8</strong>.<br><br>' +
-        'Use today to:<br>' +
+        'This weekend:<br>' +
         '🥗 Prep your meals for the week<br>' +
         '💧 Stay hydrated<br>' +
-        '🛌 Rest your back<br>' +
-        '📱 Explore the app — check the Plan & Meals tabs' +
+        '📱 Check the Plan tab — tap each exercise to preview it<br>' +
+        '🔥 Get fired up — you\'re ready for this' +
         '</div></div>';
     }
     // Hide safety banner and section label — not relevant before program starts
     const safetyBanner = document.getElementById('safetyBanner');
     const exSection = document.getElementById('todayExSection');
-    if (safetyBanner) safetyBanner.style.display = 'none';
+    if (safetyBanner) safetyBanner.style.display = 'none'; // hidden pre-launch
     if (exSection) exSection.style.display = 'none';
   }
 })();
