@@ -393,7 +393,7 @@ canvas { display:block; }
   <div id="prelaunchBanner" style="display:none;background:linear-gradient(135deg,rgba(232,255,0,0.08),rgba(0,212,255,0.05));border:1px solid rgba(232,255,0,0.2);border-radius:14px;padding:16px;margin-bottom:12px;text-align:center;">
     <div style="font-family:'Bebas Neue';font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:4px" id="launchLabel">PROGRAM LAUNCHES IN</div>
     <div style="font-family:'Bebas Neue';font-size:48px;color:var(--accent);line-height:1" id="launchCountdown">2 DAYS</div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px">Monday June 8 · Prep your meals & get ready to go</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px">Monday June 15 · Prep your meals & get ready to go</div>
   </div>
 
   <div id="safetyBanner" style="display:none;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start;">
@@ -1905,7 +1905,7 @@ function renderToday() {
 
   document.getElementById('todayLabel').textContent = todayName.toUpperCase() + ' · ' + new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'});
   document.getElementById('todayTitle').textContent = planDay.focus;
-  document.getElementById('todaySub').textContent = planDay.exercises.length ? `${getProgramWeek().phase} · ${getProgramWeek().week > 0 ? 'Week ' + getProgramWeek().week : 'Starts Monday June 8'}` : 'Today is your rest day — you earned it.';
+  document.getElementById('todaySub').textContent = planDay.exercises.length ? `${getProgramWeek().phase} · ${getProgramWeek().week > 0 ? 'Week ' + getProgramWeek().week : 'Starts Monday June 15'}` : 'Today is your rest day — you earned it.';
   document.getElementById('todayTitle').style.color = planDay.color;
 
   const meta = document.getElementById('todayMeta');
@@ -1982,8 +1982,8 @@ function checkExercise(exId) {
 function renderSchedule() {
   const container = document.getElementById('weekGrid');
   container.innerHTML = '';
-  const programMonday = new Date(2026, 5, 8); // Jun 8 2026
-  const programSunday = new Date(2026, 5, 14); // Jun 14 2026
+  const programMonday = new Date(2026, 5, 15); // Jun 15 2026
+  const programSunday = new Date(2026, 5, 21); // Jun 21 2026
   const nowEST = new Date(new Date().toLocaleString('en-US', {timeZone:'America/New_York'}));
   const inProgramWeek = nowEST >= programMonday && nowEST <= programSunday;
 
@@ -2075,7 +2075,7 @@ function renderMeals() {
   const { week } = getProgramWeek();
   const programStarted = week > 0;
   // Day names to dates for program week
-  const progMonday = new Date(2026, 5, 8);
+  const progMonday = new Date(2026, 5, 15);
   const mealDayOrder = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
   const mealDates = {};
   mealDayOrder.forEach((day, i) => {
@@ -2270,7 +2270,7 @@ const USER = {
   heightIn: 67,        // 5'7"
   weightKg: 167 * 0.453592,  // 75.75 kg
   age: 49,
-  programStart: new Date('2026-06-08'),
+  programStart: new Date('2026-06-15'),
 };
 // Max HR (Tanaka formula, better for 40+): 208 - (0.7 × age)
 USER.maxHR   = Math.round(208 - 0.7 * USER.age);  // 174 bpm
@@ -2913,7 +2913,7 @@ function updateCardioStats() {
   const { week } = getProgramWeek();
   const offset = typeof progressWeekOffset !== 'undefined' ? progressWeekOffset : 0;
   const viewWeek = Math.max(1, week + offset);
-  const programMonday = new Date(2026, 5, 8); // Jun 8 2026
+  const programMonday = new Date(2026, 5, 15); // Jun 15 2026
   const weekStart = new Date(programMonday);
   weekStart.setDate(programMonday.getDate() + (viewWeek - 1) * 7);
   const weekEnd = new Date(weekStart);
@@ -3041,7 +3041,7 @@ updateProgress();
   // Get today's date in EST timezone
   const estNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
   const estToday = new Date(estNow.getFullYear(), estNow.getMonth(), estNow.getDate());
-  const programStart = new Date(2026, 5, 8); // Jun 8 2026 (month is 0-indexed)
+  const programStart = new Date(2026, 5, 15); // Jun 15 2026 (month is 0-indexed)
 
   const diffMs = programStart - estToday;
 
@@ -3085,14 +3085,14 @@ updateProgress();
       heroTitle.style.color = 'var(--accent)';
       heroTitle.style.fontSize = '28px';
     }
-    if (heroSub) heroSub.textContent = 'Program starts Monday June 8 · Rest your back, prep your meals.';
+    if (heroSub) heroSub.textContent = 'Program starts Monday June 15 · Rest your back, prep your meals.';
     if (heroMeta) heroMeta.innerHTML = '';
     if (exContainer) {
       exContainer.innerHTML = '<div class="rest-card">' +
         '<div class="rest-icon">🔋</div>' +
         '<div class="rest-title">PROGRAM NOT YET STARTED</div>' +
         '<div class="rest-sub">' +
-        'Your first workout is <strong style="color:var(--accent)">Monday June 8</strong>.<br><br>' +
+        'Your first workout is <strong style="color:var(--accent)">Monday June 15</strong>.<br><br>' +
         'This weekend:<br>' +
         '🥗 Prep your meals for the week<br>' +
         '💧 Stay hydrated<br>' +
